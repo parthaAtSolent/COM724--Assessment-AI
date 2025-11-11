@@ -1,9 +1,5 @@
 from datetime import date
 
-# Configuration constants
-START_DATE = "2015-01-01"
-TODAY = date.today().strftime("%Y-%m-%d")
-
 # Model parameters
 LSTM_SEQUENCE_LENGTH = 60
 RF_LOOKBACK_PERIOD = 60

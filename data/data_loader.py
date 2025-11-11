@@ -1,7 +1,7 @@
 import streamlit as st
 import yfinance as yf
 import pandas as pd
-from utils.config import START_DATE, TODAY
+from config.settings import START_DATE, TODAY
 
 CRYPTOS = {
     'BTC-USD': 'Bitcoin',
@@ -49,6 +49,7 @@ def load_data(ticker):
         if isinstance(data.columns, pd.MultiIndex):
             data.columns = [col[0] for col in data.columns]
 
+        # print(data.head())
         return data
     except Exception as e:
         st.error(f"Error loading data for {ticker}: {str(e)}")

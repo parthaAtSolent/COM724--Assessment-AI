@@ -4,48 +4,61 @@ from models.prophet_forecast import prophet_forecast
 from models.arima_forecast import arima_forecast
 from models.lstm_forecast import lstm_forecast
 from models.random_forest_forecast import random_forest_forecast
-from utils.config import START_DATE
+from utils.logo import load_custom_css, display_logo
 
-# Page configuration
+
+# ---------------------------------------------------
+# Page Configuration
+# ---------------------------------------------------
 st.set_page_config(
-    page_title="Cryptocurrency Forecast App",
+    page_title="Solent Intelligence - Crypto Price Forecasting",
     page_icon="📈",
     layout="wide"
 )
 
+# ---------------------------------------------------
+# Load Custom CSS & Display Logo
+# ---------------------------------------------------
+load_custom_css("styles/style.css")
+display_logo("assets/logo2.png")
+
+# ---------------------------------------------------
+# Main Application
+# ---------------------------------------------------
+
 
 def main():
-    st.title('Cryptocurrency Forecast App')
+    st.title('Cryptocurrency Price Forecasting Application')
 
-    # Sidebar for model selection
+    # Sidebar configuration
     st.sidebar.title("Configuration")
     selected_models = st.sidebar.multiselect(
         "Select forecasting models:",
         ["Prophet", "ARIMA", "LSTM", "Random Forest"],
-        default=["LSTM"]
+        default=["Prophet"]
     )
 
-    # Main content
     selected_name = st.selectbox(
         'Select cryptocurrency for prediction',
         list(CRYPTOS.values())
     )
 
-    # Get the symbol corresponding to the selected name
+    # Get the crypto symbol
     selected_crypto = [k for k, v in CRYPTOS.items() if v == selected_name][0]
 
-    n_years = st.slider('Years of prediction:', 1, 4)
+    # Forecast duration
+    n_years = st.slider('Years of prediction:', 1, 5)
     period = n_years * 365
 
     # Load data
     data = load_data(selected_crypto)
 
     if data is not None:
-        # Display raw data and plot
+        # Show data
         st.subheader('Raw Data')
         st.write(data.tail())
 
-        # Model forecasts
+        # Run selected models
         if "Prophet" in selected_models:
             prophet_forecast(data, period, n_years, selected_name)
 
