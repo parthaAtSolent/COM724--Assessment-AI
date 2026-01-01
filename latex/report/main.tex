@@ -1,0 +1,235 @@
+\documentclass[12pt,a4paper]{article}
+
+% =================================================
+% Font (XeLaTeX or LuaLaTeX REQUIRED)
+% =================================================
+\usepackage{fontspec}
+\setmainfont{Trebuchet MS}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+
+% =================================================
+% Math and symbols
+% =================================================
+\usepackage{amsmath,amssymb,amsfonts}
+
+% =================================================
+% Graphics and floats
+% =================================================
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{hanging}
+\usepackage{ragged2e}
+
+% =================================================
+% Tables
+% =================================================
+\usepackage{multirow}
+
+% =================================================
+% Lists and layout
+% =================================================
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+% =================================================
+% TOC customization
+% =================================================
+\usepackage[titles]{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{5pt}
+\setlength{\cftbeforesubsecskip}{3pt}
+
+% =================================================
+% Text and color
+% =================================================
+\usepackage{textcomp}
+
+% =================================================
+% Citations
+% =================================================
+\usepackage{cite}
+
+% =================================================
+% Hyperref (MUST be loaded last)
+% =================================================
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black,
+    pdftitle={Maternal Mortality Predictive Analysis},
+    pdfauthor={Partha Pratim Mazumder},
+    pdfsubject={Machine Learning for Maternal Health},
+    pdfkeywords={Maternal mortality, machine learning, Bangladesh, public health}
+}
+
+% =================================================
+% Title information
+% =================================================
+\title{Maternal Mortality Predictive Analysis: A Comparative Study of Machine Learning Models for Bangladesh Maternal Health}
+
+\author{
+Partha Pratim Mazumder\\
+Department of Science and Engineering\\
+Solent University\\
+Southampton, United Kingdom\\
+\texttt{0mazup37@solent.ac.uk}
+}
+
+\date{}
+
+\begin{document}
+
+% ---------------- Title Page ----------------
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    {\LARGE \textbf{Data Analytics and Visualisation (COM725)}}\\[1.5cm]
+    {\Large \textbf{Project (Software Product and Technical Report)}}\\[2cm]
+
+    {\Huge \textbf{Predicting Maternal Mortality Using Ensemble Learning and SHAP-Based Interpretability:\\
+    A Data-Driven Decision Support Approach}}\\[1cm]
+
+    {\Large \textbf{Name \& Student Number}}\\
+    {\Large Partha Pratim Mazumder (Q103063737)}\\[3cm]
+
+    \vfill
+    {\Large \textbf{Module Leader: Raza Hasan}}\\[1cm]
+    {\Huge \textbf{SOLENT UNIVERSITY SOUTHAMPTON}}
+\end{titlepage}
+
+\newpage
+
+% ---------------- TOC ----------------
+\tableofcontents
+\thispagestyle{empty}
+\newpage
+
+% ---------------- List of Figures ----------------
+\listoffigures
+\newpage
+
+% ---------------- List of Tables ----------------
+\listoftables
+\newpage
+
+% ---------------- Main Content ----------------
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+% =================================================
+\section{Introduction}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Literature Review}
+
+\subsection{Primary Causes of Maternal Mortality}
+This section is intentionally left as a placeholder.
+
+\subsection{Demographic and Socioeconomic Risk Factors}
+This section is intentionally left as a placeholder.
+
+\subsection{Healthcare Utilization and System Readiness}
+This section is intentionally left as a placeholder.
+
+\subsection{Gender Disparities in Care}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Methodology}
+
+\subsection{Dataset Description}
+This section is intentionally left as a placeholder.
+
+\subsection{Data Integration and Preprocessing}
+This section is intentionally left as a placeholder.
+
+\subsection{Feature Engineering}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Exploratory Data Analysis}
+
+\subsection{Univariate Analysis}
+This section is intentionally left as a placeholder.
+
+\subsection{Bivariate Analysis}
+This section is intentionally left as a placeholder.
+
+\subsection{Multivariate Exploratory Analysis}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Machine Learning Modeling}
+
+\subsection{Modeling with Undersampling}
+This section is intentionally left as a placeholder.
+
+\subsection{Modeling with Oversampling}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Model Interpretability using SHAP}
+
+\subsection{Global Feature Importance}
+This section is intentionally left as a placeholder.
+
+\subsection{Local Explanation of Individual Predictions}
+This section is intentionally left as a placeholder.
+
+\subsection{Distribution of Feature Effects}
+This section is intentionally left as a placeholder.
+
+\subsection{Interpretability Summary}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Modelling and Evaluation}
+
+\subsection{Model Performance and Results}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Tableau Dashboard Design}
+
+\subsection{Dashboard Components and Insights}
+This section is intentionally left as a placeholder.
+
+\subsection{Analytical Value and Decision Support}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Discussion}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section{Conclusion}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\section*{Acknowledgements}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\newpage
+\section*{References}
+\addcontentsline{toc}{section}{References}
+This section is intentionally left as a placeholder.
+
+% =================================================
+\newpage
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+This section is intentionally left as a placeholder.
+
+\end{document}

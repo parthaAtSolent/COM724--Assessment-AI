@@ -35,7 +35,7 @@ def main():
     selected_models = st.sidebar.multiselect(
         "Select forecasting models:",
         ["Prophet", "ARIMA", "LSTM", "Random Forest"],
-        default=["Prophet"]
+        default=["ARIMA", "Prophet"]
     )
 
     selected_name = st.selectbox(
