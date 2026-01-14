@@ -1,48 +1,122 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
 from prophet import Prophet
-from prophet.plot import plot_plotly
-from utils.helpers import create_future_dates, calculate_metrics
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+import warnings
+
+warnings.filterwarnings("ignore")
 
 
 def prophet_forecast(data, period, n_years, selected_name):
-    """Prophet forecasting implementation"""
-    st.subheader('Prophet Forecast')
+    st.subheader("📈 Prophet Forecasting")
 
-    # Prepare data for Prophet
-    df_train = data[['Date', 'Close']]
-    df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+    # ----- Prepare data -----
+    df = pd.DataFrame({
+        "ds": data.index,
+        "y": data["Close"]
+    }).dropna()
 
-    with st.spinner('Training Prophet model...'):
-        m = Prophet()
-        m.fit(df_train)
-        future = m.make_future_dataframe(periods=period)
-        forecast = m.predict(future)
+    # ----- Train / test split -----
+    train_size = int(len(df) * 0.8)
+    train_df = df.iloc[:train_size]
+    test_df = df.iloc[train_size:]
 
-    # Display results
+    st.info(f"Train size: {len(train_df)} | Test size: {len(test_df)}")
+
+    # =========================
+    # 1️⃣ TRAIN MODEL (TRAIN ONLY)
+    # =========================
+    with st.spinner("Training Prophet model..."):
+        train_model = Prophet(
+            yearly_seasonality=True,
+            weekly_seasonality=True,
+            daily_seasonality=False
+        )
+        train_model.fit(train_df)
+
+    # ----- Test prediction (BACKTEST) -----
+    test_forecast = train_model.predict(test_df[["ds"]])
+
+    rmse = np.sqrt(mean_squared_error(test_df["y"], test_forecast["yhat"]))
+    mae = mean_absolute_error(test_df["y"], test_forecast["yhat"])
+
     col1, col2 = st.columns(2)
+    col1.metric("RMSE", f"{rmse:.2f}")
+    col2.metric("MAE", f"{mae:.2f}")
 
-    with col1:
-        st.subheader('Forecast Data')
-        st.write(forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail())
+    # =========================
+    # 2️⃣ REFIT ON FULL DATA (FUTURE ONLY)
+    # =========================
+    with st.spinner("Refitting model for future forecast..."):
+        full_model = Prophet(
+            yearly_seasonality=True,
+            weekly_seasonality=True,
+            daily_seasonality=False
+        )
+        full_model.fit(df)
 
-    with col2:
-        current_price = data['Close'].iloc[-1]
-        future_price = forecast['yhat'].iloc[-1]
-        total_return, annual_return = calculate_metrics(
-            current_price, future_price, n_years)
+    future = full_model.make_future_dataframe(periods=period, freq="D")
+    future_forecast = full_model.predict(future)
 
-        st.metric("Current Price", f"${current_price:.2f}")
-        st.metric(f"Forecast Price ({n_years} years)", f"${future_price:.2f}")
-        st.metric("Total Return", f"{total_return:.2f}%")
-        st.metric("Annualized Return", f"{annual_return:.2f}%")
+    future_only = future_forecast.iloc[-period:]
 
-    # Plot forecast
-    st.write(f'Prophet Forecast for {n_years} years')
-    fig1 = plot_plotly(m, forecast)
-    st.plotly_chart(fig1)
+    # =========================
+    # 3️⃣ PLOT (STRICTLY ALIGNED)
+    # =========================
+    fig = go.Figure()
 
-    # Plot components
-    st.write("Forecast Components")
-    fig2 = m.plot_components(forecast)
-    st.pyplot(fig2)
+    # Historical
+    fig.add_trace(go.Scatter(
+        x=train_df["ds"],
+        y=train_df["y"],
+        name="Historical",
+        line=dict(width=2)
+    ))
+
+    # Test prediction
+    fig.add_trace(go.Scatter(
+        x=test_df["ds"],
+        y=test_forecast["yhat"],
+        name="Test Prediction",
+        line=dict(dash="dash")
+    ))
+
+    # Future forecast
+    fig.add_trace(go.Scatter(
+        x=future_only["ds"],
+        y=future_only["yhat"],
+        name="Forecast",
+        line=dict(width=3, dash="dash")
+    ))
+
+    # Confidence interval (FUTURE ONLY)
+    fig.add_trace(go.Scatter(
+        x=list(future_only["ds"]) + list(future_only["ds"][::-1]),
+        y=list(future_only["yhat_upper"]) +
+        list(future_only["yhat_lower"][::-1]),
+        fill="toself",
+        fillcolor="rgba(0, 0, 255, 0.15)",
+        line=dict(color="rgba(255,255,255,0)"),
+        name="Confidence Interval"
+    ))
+
+    fig.update_layout(
+        title=f"Prophet Forecast – {selected_name}",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        hovermode="x unified",
+        height=500
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+    # =========================
+    # 4️⃣ FORECAST TABLE
+    # =========================
+    forecast_df = future_only[["ds", "yhat"]].set_index("ds")
+    forecast_df.columns = ["Forecast"]
+
+    st.subheader("📊 Forecast Values")
+    st.dataframe(forecast_df.tail(10))

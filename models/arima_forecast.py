@@ -1,109 +1,94 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from datetime import timedelta
 import warnings
 import plotly.graph_objects as go
+
 from pmdarima import auto_arima
 from statsmodels.tsa.arima.model import ARIMA
-from utils.helpers import create_future_dates, calculate_metrics
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+
+warnings.filterwarnings("ignore")
 
 
 def arima_forecast(data, period, n_years, selected_name):
-    """ARIMA forecasting implementation"""
-    st.subheader('ARIMA Forecast')
+    st.subheader("📈 ARIMA Forecasting")
 
-    # Prepare data for ARIMA
-    df_arima = data[['Date', 'Close']].set_index('Date')
+    # Use only Close price (as in notebook)
+    series = data["Close"].dropna()
 
-    with st.spinner('Finding best ARIMA model...'):
-        # Auto ARIMA to find best parameters
+    # Train / test split (80/20)
+    train_size = int(len(series) * 0.8)
+    train, test = series[:train_size], series[train_size:]
+
+    st.info(f"Train size: {len(train)} | Test size: {len(test)}")
+
+    with st.spinner("Training Auto-ARIMA model..."):
         auto_model = auto_arima(
-            df_arima['Close'],
+            train,
             seasonal=False,
-            trace=False,
-            error_action='ignore',
-            suppress_warnings=True,
-            stepwise=True
+            stepwise=True,
+            suppress_warnings=True
         )
 
-        st.write(f"Best ARIMA model: {auto_model}")
+    # Fit ARIMA using best order
+    model = ARIMA(series, order=auto_model.order)
+    model_fit = model.fit()
 
-    # Fit the model on entire dataset
-    final_model = ARIMA(df_arima['Close'], order=auto_model.order)
-    fitted_model = final_model.fit()
+    # Test predictions
+    test_pred = auto_model.predict(n_periods=len(test))
 
-    # Forecast future values
-    forecast_result = fitted_model.get_forecast(steps=period)
-    forecast_values = forecast_result.predicted_mean
-    conf_int = forecast_result.conf_int()
+    rmse = np.sqrt(mean_squared_error(test, test_pred))
+    mae = mean_absolute_error(test, test_pred)
 
-    # Create forecast dataframe
-    future_dates = create_future_dates(df_arima.index[-1], period)
-    forecast_df = pd.DataFrame({
-        'ds': future_dates,
-        'yhat': forecast_values,
-        'yhat_lower': conf_int.iloc[:, 0],
-        'yhat_upper': conf_int.iloc[:, 1]
-    })
-
-    # Display results
     col1, col2 = st.columns(2)
+    col1.metric("RMSE", f"{rmse:.2f}")
+    col2.metric("MAE", f"{mae:.2f}")
 
-    with col1:
-        st.subheader('ARIMA Forecast Data')
-        st.write(forecast_df.tail())
+    # Forecast future
+    forecast = model_fit.forecast(steps=period)
 
-    with col2:
-        current_price = df_arima['Close'].iloc[-1]
-        future_price = forecast_df['yhat'].iloc[-1]
-        total_return, annual_return = calculate_metrics(
-            current_price, future_price, n_years)
+    future_dates = pd.date_range(
+        start=series.index[-1],
+        periods=period + 1,
+        freq="D"
+    )[1:]
 
-        st.metric("Current Price", f"${current_price:.2f}")
-        st.metric(f"Forecast Price ({n_years} years)", f"${future_price:.2f}")
-        st.metric("Total Return", f"{total_return:.2f}%")
-        st.metric("Annualized Return", f"{annual_return:.2f}%")
-
-    # Plot ARIMA forecast
+    # Plot
     fig = go.Figure()
-
-    # Historical data
     fig.add_trace(go.Scatter(
-        x=df_arima.index,
-        y=df_arima['Close'],
-        name='Historical Data',
-        line=dict(color='blue')
+        x=series.index,
+        y=series,
+        name="Historical",
+        line=dict(width=2)
     ))
-
-    # Forecast
     fig.add_trace(go.Scatter(
-        x=forecast_df['ds'],
-        y=forecast_df['yhat'],
-        name='ARIMA Forecast',
-        line=dict(color='red', dash='dash')
+        x=test.index,
+        y=test_pred,
+        name="Test Prediction",
+        line=dict(dash="dash")
     ))
-
-    # Confidence interval
     fig.add_trace(go.Scatter(
-        x=forecast_df['ds'].tolist() + forecast_df['ds'].tolist()[::-1],
-        y=forecast_df['yhat_upper'].tolist(
-        ) + forecast_df['yhat_lower'].tolist()[::-1],
-        fill='toself',
-        fillcolor='rgba(255,0,0,0.2)',
-        line=dict(color='rgba(255,255,255,0)'),
-        name='95% Confidence Interval'
+        x=future_dates,
+        y=forecast,
+        name="Forecast",
+        line=dict(width=3)
     ))
 
     fig.update_layout(
-        title=f'ARIMA Forecast - {selected_name}',
-        xaxis_title='Date',
-        yaxis_title='Price (USD)',
-        xaxis_rangeslider_visible=True
+        title=f"ARIMA Forecast – {selected_name}",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        height=500
     )
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
-    # Model summary
-    with st.expander("ARIMA Model Summary"):
-        st.text(str(fitted_model.summary()))
+    # Forecast table
+    forecast_df = pd.DataFrame({
+        "Date": future_dates,
+        "Forecast": forecast.values
+    }).set_index("Date")
+
+    st.subheader("📊 Forecast Values")
+    st.dataframe(forecast_df.tail(10))

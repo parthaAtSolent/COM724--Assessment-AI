@@ -2,7 +2,7 @@ from datetime import date, timedelta
 
 
 TODAY = date.today().strftime("%Y-%m-%d")
-START_DATE = "2010-01-01"
+START_DATE = "2020-01-01"
 
 # print(f"Data will be fetched from {START_DATE} to {TODAY}")
 

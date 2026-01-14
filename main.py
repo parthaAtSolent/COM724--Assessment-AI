@@ -1,3 +1,7 @@
+# 🔹 Forecasting = numeric prediction + time
+# 🔹 Prediction = any informed statement(/category, /probablity, /numeric value) about an outcome
+
+
 import streamlit as st
 from data.data_loader import load_data, CRYPTOS
 from models.prophet_forecast import prophet_forecast
@@ -35,7 +39,7 @@ def main():
     selected_models = st.sidebar.multiselect(
         "Select forecasting models:",
         ["Prophet", "ARIMA", "LSTM", "Random Forest"],
-        default=["ARIMA", "Prophet"]
+        default=["Random Forest"]
     )
 
     selected_name = st.selectbox(
