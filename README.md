@@ -1,16 +1,5 @@
-Absolutely 👍
-Below is a **revised, professional `README.md`** that:
 
-✅ Adds **project structure at the beginning**
-✅ Clearly states **`assets/` lives in a different branch**
-✅ Explicitly mentions **NO README inside the LaTeX folder**
-✅ Includes **manual LaTeX compilation steps (clearly explained)**
-✅ Uses **clean comments + professional emojis**
-✅ Is ready for **GitHub / university submission**
 
----
-
-````markdown
 # 📝 LaTeX Report Writing in VS Code
 
 This repository documents how to set up **LaTeX for academic report writing using Visual Studio Code**, including compiler installation, editor configuration, custom fonts, and manual compilation.  
@@ -23,7 +12,6 @@ The workflow is designed for **LuaLaTeX / XeLaTeX** and supports professional ac
 The repository follows a **clean, modular structure** to separate source code and large assets.
 
 ```text
-.
 ├── latex/
 │   └── report/
 │       └── main.tex
@@ -199,6 +187,6 @@ This setup ensures **professional, reproducible, and submission-ready academic r
 ---
 
 📌 **Author:** Partha Pratim Mazumder
-📘 **Module:** Data Analytics and Visualisation (COM725)
+📘 **Module:** AI In Business (COM724)
 🏫 **Institution:** Solent University
 
