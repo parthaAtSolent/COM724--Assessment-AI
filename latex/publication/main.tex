@@ -1,0 +1,551 @@
+\documentclass[conference]{IEEEtran}
+% ======================
+% COMPILATION NOTE
+% ======================
+% Compile with pdfLaTeX or XeLaTeX
+
+% ======================
+% PACKAGES
+% ======================
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{hyperref}
+
+\hypersetup{
+    hidelinks,
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=black,
+    citecolor=black
+}
+
+% ======================
+% CODE LISTINGS
+% ======================
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    stringstyle=\color{green!50!black},
+    commentstyle=\color{gray},
+    breaklines=true,
+    frame=single,
+    captionpos=b
+}
+
+% ======================
+% DOCUMENT
+% ======================
+\begin{document}
+
+% ======================
+% TITLE
+% ======================
+\title{Cryptocurrency Price Forecasting Using Multiple Artificial Intelligence Models}
+
+% ======================
+% AUTHORS
+% ======================
+\author{
+    \IEEEauthorblockN{Partha Pratim Mazumder}
+    \IEEEauthorblockA{\textit{Department of Science and Engineering} \\
+    \textit{Solent University Southampton}\\
+    Southampton, UK \\
+    0mazup37@solent.ac.uk}
+}
+
+\maketitle
+
+% ======================
+% ABSTRACT
+% ======================
+\begin{abstract}
+This project presents a production-grade, end-to-end cryptocurrency price forecasting pipeline that integrates statistical, machine learning, and deep learning models into a unified analysis workflow. An interactive web application, built with Python and Streamlit, supports asset selection, configurable forecasting horizons, and four distinct models (ARIMA, Prophet, LSTM, and Random Forest) for comparative analysis. The system addresses the challenges of non-stationary, noisy price dynamics inherent in cryptocurrency markets through robust preprocessing, feature engineering, and model evaluation frameworks. Experimental results demonstrate that LSTM and Random Forest models achieve superior forecasting accuracy compared to traditional statistical approaches, with LSTM attaining the lowest MAPE of 2.78\% for Bitcoin price prediction.
+\end{abstract}
+
+% ======================
+% KEYWORDS
+% ======================
+\begin{IEEEkeywords}
+cryptocurrency, price forecasting, ARIMA, Prophet, LSTM, Random Forest, time series analysis, machine learning, deep learning
+\end{IEEEkeywords}
+
+% ======================
+% INTRODUCTION
+% ======================
+\section{Introduction}
+
+In the rapidly-evolving world of digital assets, cryptocurrency has become a staple of modern financial markets. However, forecasting its non-stationary, noisy price dynamics remains a challenging problem due to market noise, regulation, and dominant sentiment.
+
+This project offers a production-grade, end-to-end cryptocurrency price forecasting pipeline that integrates statistics, machine learning, and deep learning models into one analysis workflow. The interactive web application, built with Python and Streamlit, supports asset selection, forecasting horizons, and four different models (ARIMA, Prophet, LSTM, and Random Forest) for users to explore.
+
+% ======================
+% RELATED WORK
+% ======================
+
+\section{Related Work}
+
+Cryptocurrency price forecasting has evolved significantly with the application of diverse methodological approaches ranging from traditional statistical models to advanced machine learning techniques. The Autoregressive Integrated Moving Average (ARIMA) model has served as a foundational benchmark, with Bakar and Rosbi \cite{bakar2017} achieving mean absolute percentage errors of 5.36\% for Bitcoin forecasting, though McNally, Roche and Caton \cite{mcnally2018} highlighted its limitations in capturing non-linear patterns, achieving only 50.05\% accuracy. Facebook's Prophet model has emerged as a promising alternative, with Sailaja et al. \cite{sailaja2024} demonstrating superior performance over ARIMA for Ethereum prediction (MSE of 196.28 versus 332.17), attributed to its robust handling of seasonality and trend changes. Deep learning approaches, particularly Long Short-Term Memory (LSTM) networks, have shown remarkable capabilities in cryptocurrency forecasting, with McNally, Roche and Caton \cite{mcnally2018} reporting 52.78\% accuracy and Garc\'{i}a et al. \cite{garcia2023} concluding that LSTMs represent optimal solutions for short-term predictions. Chowdhury et al. \cite{chowdhury2020} found that Gated Recurrent Units (GRU) achieved the lowest MAPE values (0.2454\% for Bitcoin, 0.2116\% for Litecoin), while ensemble methods combining gradient boosting and neural networks have demonstrated enhanced performance. Alessandretti et al. \cite{alessandretti2018} analyzed 1,681 cryptocurrencies using gradient boosting decision trees and LSTM, showing that machine learning-assisted portfolios systematically outperformed baseline strategies. Recent advances include hybrid models, with Kashif and \'{S}lepaczuk \cite{kashif2024} proposing LSTM-ARIMA combinations and Albahli \cite{albahli2025} demonstrating that LSTM-Prophet hybrids significantly outperform standalone implementations. Random Forest has also gained traction, particularly in fraud detection applications \cite{alhashedi2021}, while Sun, Liu and Sima \cite{sun2020} showed that LightGBM consistently outperformed traditional methods with accuracies exceeding 88\% for short-term forecasting. Ren et al. \cite{ren2022} conducted a systematic review of 431 papers, identifying neural networks as the most prevalent approach, though noting persistent challenges with overfitting and interpretability. Despite substantial progress, research gaps remain in multi-cryptocurrency analysis, integration of external factors such as social media sentiment, and comprehensive comparisons across model types under consistent experimental conditions, which this study addresses through rigorous evaluation of ARIMA, Prophet, LSTM, and Random Forest models.
+
+% ======================
+% SYSTEM ARCHITECTURE
+% ======================
+\section{System Architecture and Design}
+
+The system follows a modular architecture to ensure scalability, maintainability, and clarity. Each major responsibility of the application is separated into dedicated folders, enabling easier development, testing, and future extension.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{../assets/system_architecture.png}
+\caption{High-level system architecture showing modular components.}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Project Folder Structure}
+
+The project directory is organised into logical folders, each responsible for a specific aspect of the system.
+
+\subsubsection{Components}
+
+This folder contains all user interface components used in the Streamlit application. It is responsible for structuring and displaying different sections of the dashboard, ensuring a clear separation between presentation and application logic.
+
+\subsubsection{Models}
+
+The models folder contains implementations of multiple forecasting algorithms. Each model is isolated within this directory, allowing easy comparison between different predictive approaches and supporting extensibility.
+
+\subsubsection{Utilities}
+
+This directory provides shared utility functions used throughout the system. It supports data preprocessing, evaluation, configuration management, and plotting, helping to reduce code duplication and improve consistency.
+
+% ======================
+% DATA COLLECTION
+% ======================
+\section{Data Collection and Preprocessing}
+
+Historical cryptocurrency price data is collected programmatically using external financial data sources. The dataset consists of daily open, high, low, close, and volume values, which are then passed through a preprocessing pipeline before being used for forecasting.
+
+\subsection{Data Collection}
+
+The following code snippet demonstrates how historical price data is downloaded, stored locally, and passed to the preprocessing function.
+
+\begin{lstlisting}[caption={Cryptocurrency data collection and storage}]
+import yfinance as yf
+
+try:
+    data = yf.download(ticker, START_DATE, TODAY)
+    data.reset_index(inplace=True)
+
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = [col[0] for col in data.columns]
+
+    base_dir = "data"
+    ticker_dir = os.path.join(base_dir, ticker)
+    os.makedirs(ticker_dir, exist_ok=True)
+
+    file_name = f"{ticker}_from_{START_DATE}_till_{TODAY}.csv"
+    file_path = os.path.join(ticker_dir, file_name)
+
+    data.to_csv(file_path, index=False)
+    print(f"Data saved to: {file_path}")
+
+    btc_preprocessed = preprocessing(data)
+    return btc_preprocessed
+\end{lstlisting}
+
+\subsection{Preprocessing}
+
+The preprocessing stage standardises date handling, removes inconsistencies, handles missing values, and applies basic outlier control to numerical features.
+
+\begin{lstlisting}[caption={Data preprocessing function}]
+def preprocessing(data: pd.DataFrame) -> pd.DataFrame:
+    df = data.copy()
+
+    if 'Date' in df.columns:
+        df['Date'] = pd.to_datetime(df['Date'])
+        df.set_index('Date', inplace=True)
+
+    df.ffill(inplace=True)
+    df.drop_duplicates(inplace=True)
+
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+
+    for col in numeric_cols:
+        lower = df[col].quantile(0.05)
+        upper = df[col].quantile(0.95)
+        df[col] = df[col].clip(lower, upper)
+
+    return df
+\end{lstlisting}
+
+% ======================
+% EXPLORATORY DATA ANALYSIS
+% ======================
+\section{Exploratory Data Analysis}
+
+Exploratory Data Analysis (EDA) was conducted to understand the characteristics, distributions, and relationships within the cryptocurrency price data before applying forecasting models. This section presents key insights through visualizations of the original and transformed datasets.
+
+\subsection{Feature Correlation Analysis}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/correlation_matrix.png}
+\caption{Correlation Matrix of Cryptocurrency Price Features.}
+\label{fig:correlation_matrix}
+\end{figure}
+
+Figure~\ref{fig:correlation_matrix} presents a correlation heatmap of the primary price features: Close, High, Low, Open, and Volume. The visualization reveals near-perfect positive correlation ($\approx$1.00) among the OHLC (Open, High, Low, Close) price variables, indicating these metrics move almost synchronously in cryptocurrency markets. Volume demonstrates a strong positive correlation of 0.90 with price metrics, suggesting trading activity is closely tied to price movements. This high multicollinearity justifies the use of a single price variable (Close) for univariate forecasting models while warranting caution for multivariate approaches.
+
+\subsection{Data Transformation Analysis}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/distribution_comparison.png}
+\caption{Comparison of Original vs Transformed Close Price Distributions.}
+\label{fig:distribution_comparison}
+\end{figure}
+
+Figure~\ref{fig:distribution_comparison} illustrates the effect of the Yeo-Johnson transformation applied to normalize the price distribution. The original Close price exhibits significant positive skewness (1.331) and kurtosis (0.791), with a wide range from \$178.10 to \$124,752.53. After transformation, the data achieves near-zero mean and unit standard deviation, with skewness reduced to -0.141 and kurtosis to -1.122. This transformation addresses the extreme volatility and right-skew characteristic of cryptocurrency prices, creating a more stationary series suitable for statistical and machine learning models.
+
+% ======================
+% FORECASTING MODELS
+% ======================
+
+\section{Forecasting Models}
+
+\subsection{ARIMA}
+
+\subsubsection{Conceptual Overview}
+
+The AutoRegressive Integrated Moving Average (ARIMA) model is a classical statistical approach that captures linear temporal dependencies through autoregressive (AR), differencing (I), and moving average (MA) components. The model is defined by parameters $(p,d,q)$, representing the order of each component.
+
+The ARIMA model is mathematically expressed as:
+
+$$(1 - \sum_{i=1}^{p} \phi_i L^i)(1 - L)^d y_t = (1 + \sum_{j=1}^{q} \theta_j L^j)\varepsilon_t$$
+
+where:
+\begin{itemize}
+    \item $y_t$ represents the observed time series at time $t$
+    \item $L$ is the lag operator
+    \item $\phi_i$ are the parameters of the autoregressive (AR) component
+    \item $\theta_j$ are the parameters of the moving average (MA) component
+    \item $(1-L)^d$ denotes the differencing operation of order $d$
+    \item $\varepsilon_t$ is white noise error term
+\end{itemize}
+
+Alternatively, the model can be written in its simplified form:
+
+$$y_t' = c + \phi_1 y_{t-1}' + ... + \phi_p y_{t-p}' + \theta_1 \varepsilon_{t-1} + ... + \theta_q \varepsilon_{t-q} + \varepsilon_t$$
+
+where $y_t'$ represents the differenced series (stationary transformation of $y_t$).
+
+\subsubsection{Suitability for Cryptocurrency Data}
+
+ARIMA serves as a foundational benchmark due to its simplicity and interpretability. Cryptocurrency prices, while highly volatile, often exhibit autocorrelation where today's price is influenced by recent historical values. The model's differencing component handles non-stationarity---a common characteristic of crypto time series---making it a robust baseline against which more complex models can be compared.
+
+\subsubsection{Evaluation Framework}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/arima.png}
+\caption{Forecasting architecture of ARIMA model.}
+\label{fig:arima}
+\end{figure}
+
+Model performance is assessed using RMSE, MAE, R\textsuperscript{2} Score, and MAPE. These metrics quantify prediction accuracy, error magnitude, explanatory power, and percentage deviation respectively, providing a multi-dimensional view of forecast quality on a held-out test set (20\% of data).
+
+\begin{table}[h]
+\centering
+\caption{Evaluation Metrics for Bitcoin using ARIMA (1,1,0) Model}
+\label{tab:arima-bitcoin-metrics}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+RMSE & 28010.47 \\
+MAE & 26261.12 \\
+R\textsuperscript{2} & -6.8848 \\
+MAPE & 25.87\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Prophet}
+
+\subsubsection{Conceptual Overview}
+
+Prophet is an additive regression model developed by Facebook for forecasting time series with strong seasonal patterns. It decomposes the series into trend, seasonality, and holiday components using a Bayesian curve-fitting approach.
+
+Prophet decomposes a time series into three main components using a generalized additive model:
+
+$$y(t) = g(t) + s(t) + h(t) + \varepsilon_t$$
+
+where:
+\begin{itemize}
+    \item $g(t)$ represents the trend function modeling non-periodic changes
+    \item $s(t)$ represents periodic seasonality components (e.g., weekly, yearly)
+    \item $h(t)$ captures holiday effects with irregular schedules
+    \item $\varepsilon_t$ is the error term accounting for unexplained variations
+\end{itemize}
+
+The trend component $g(t)$ can be modeled using either a saturating growth model:
+
+$$g(t) = \frac{C}{1 + \exp(-k(t-m))}$$
+
+or a piecewise linear model with change points:
+
+$$g(t) = (k + \boldsymbol{a}(t)^T \boldsymbol{\delta})t + (m + \boldsymbol{a}(t)^T \boldsymbol{\gamma})$$
+
+\subsubsection{Suitability for Cryptocurrency Data}
+
+Prophet excels at capturing recurring patterns and adapting to structural breaks---both relevant to cryptocurrency markets which exhibit intra-week and intra-year seasonalities (e.g., weekend effects, quarterly trends). Its ability to handle missing data and outliers makes it resilient to the noisy, irregular observations common in crypto datasets.
+
+\subsubsection{Evaluation Framework}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/prophet.png}
+\caption{Forecasting architecture of Prophet model.}
+\label{fig:prophet}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Evaluation Metrics for Bitcoin using Prophet Model}
+\label{tab:prophet-bitcoin-metrics}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+RMSE & 15106.45 \\
+MAE & 13565.15 \\
+R\textsuperscript{2} & -1.2934 \\
+MAPE & 3.14\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{LSTM}
+
+\subsubsection{Conceptual Overview}
+
+Long Short-Term Memory (LSTM) networks are a type of recurrent neural network (RNN) designed to capture long-range temporal dependencies through gated memory cells. Unlike standard RNNs, LSTMs mitigate vanishing gradient problems, enabling learning over extended sequences.
+
+The LSTM architecture is governed by a system of gating mechanisms that regulate information flow through the cell state. At each time step $t$, the following computations are performed:
+
+\textbf{Forget Gate}:
+$$f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)$$
+
+\textbf{Input Gate}:
+$$i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)$$
+$$\tilde{C}_t = \tanh(W_C \cdot [h_{t-1}, x_t] + b_C)$$
+
+\textbf{Cell State Update}:
+$$C_t = f_t \odot C_{t-1} + i_t \odot \tilde{C}_t$$
+
+\textbf{Output Gate}:
+$$o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o)$$
+$$h_t = o_t \odot \tanh(C_t)$$
+
+where:
+\begin{itemize}
+    \item $x_t$ is the input vector at time $t$
+    \item $h_{t-1}$ and $h_t$ are the previous and current hidden states
+    \item $C_{t-1}$ and $C_t$ are the previous and current cell states
+    \item $W$ and $b$ represent weight matrices and bias vectors
+    \item $\sigma$ denotes the sigmoid activation function
+    \item $\odot$ represents element-wise multiplication
+\end{itemize}
+
+\subsubsection{Suitability for Cryptocurrency Data}
+
+Cryptocurrency markets exhibit complex, nonlinear dependencies that traditional statistical models may miss. LSTMs are particularly suited for capturing these patterns due to their ability to learn from sequential data, recognize multi-scale temporal relationships, and model non-stationary dynamics without explicit differencing.
+
+\subsubsection{Evaluation Framework}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/lstm.png}
+\caption{Forecasting architecture of LSTM model.}
+\label{fig:lstm}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Evaluation Metrics for Bitcoin using LSTM Model}
+\label{tab:lstm-bitcoin-metrics}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+RMSE & 3161.26 \\
+MAE & 2772.81 \\
+R\textsuperscript{2} & 0.8812 \\
+MAPE & 2.78\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Random Forest}
+
+\subsubsection{Conceptual Overview}
+
+Random Forest is an ensemble machine learning method that constructs multiple decision trees during training and outputs the mean prediction of individual trees. It handles nonlinear relationships and provides feature importance estimates, making it robust to overfitting.
+
+For a regression task with input features $X$ and target variable $Y$, the Random Forest prediction is the averaged output from $B$ individual regression trees:
+
+$$\hat{f}(X) = \frac{1}{B} \sum_{b=1}^{B} T_b(X)$$
+
+where $T_b(X)$ represents the prediction from the $b$-th decision tree.
+
+Each tree is trained on a bootstrap sample of the original dataset, and at each node split, a random subset of $m$ features is considered from the total $p$ features. The optimal split is determined by minimizing the residual sum of squares:
+
+$$\text{Split Criterion} = \min \left[ \sum_{i \in \text{left}} (y_i - \bar{y}_{\text{left}})^2 + \sum_{j \in \text{right}} (y_j - \bar{y}_{\text{right}})^2 \right]$$
+
+The generalization error for regression asymptotically converges to:
+
+$$PE^* = E_{X,Y}[Y - h(X)]^2$$
+
+where $h(X)$ is the randomized forest predictor.
+
+\subsubsection{Suitability for Cryptocurrency Data}
+
+The model's ability to learn complex interactions between multiple input features makes it effective for cryptocurrency forecasting, where price movements result from intertwined technical, temporal, and volatility factors. Its resistance to outliers and noise aligns well with crypto market conditions.
+
+\subsubsection{Evaluation Framework}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/randomforest.png}
+\caption{Forecasting architecture of Random Forest model.}
+\label{fig:randomforest}
+\end{figure}
+
+\begin{table}[h]
+\centering
+\caption{Evaluation Metrics for Bitcoin using Random Forest Model}
+\label{tab:rf-bitcoin-metrics}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+RMSE & 7976.75 \\
+MAE & 4544.81 \\
+R\textsuperscript{2} & 0.9248 \\
+MAPE & 8.26\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Streamlit Application}
+
+The forecasting platform is implemented as an interactive web application using Streamlit, a Python framework for building data applications. The interface is organized into four main sections that guide users through the forecasting workflow, from configuration to results visualization.
+
+\subsection{Sidebar Navigation and Configuration}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.25\textwidth]{../assets/sidenav.png}
+\caption{Sidebar Configuration Panel for Model and Forecast Settings.}
+\label{fig:sidebar_config}
+\end{figure}
+
+The left sidebar (Fig.~\ref{fig:sidebar_config}) serves as the central control panel for the forecasting system. Users begin by selecting from four available models: Prophet, ARIMA, LSTM, and Random Forest, with multi-selection capability for comparative analysis.
+
+\subsection{Header and Market Information Display}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/header.png}
+\caption{Market Overview Header with Real-time Cryptocurrency Metrics.}
+\label{fig:header_info}
+\end{figure}
+
+The header section (Fig.~\ref{fig:header_info}) provides immediate market context upon cryptocurrency selection. It displays the trading pair symbol (e.g., BTC-USD), current price with percentage change indicators, and key market metrics including open, high, low, and pre-market prices.
+
+\subsection{Interactive Historical Chart Visualization}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/chart.png}
+\caption{Interactive Price Chart with Time Window Controls.}
+\label{fig:chart_section}
+\end{figure}
+
+The central chart section (Fig.~\ref{fig:chart_section}) offers interactive exploration of historical price data through a Plotly visualization. Users can adjust the time window using preset intervals (1D to MAX) or manually zoom and pan across the timeline.
+
+\subsection{Forecast Results and Model Comparison}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{../assets/forecast.png}
+\caption{Forecast Visualization with Model Metrics and Predictions.}
+\label{fig:forecast_section}
+\end{figure}
+
+The forecast results section (Fig.~\ref{fig:forecast_section}) presents the analytical core of the application. Each selected model generates a dedicated visualization showing historical data, validation predictions (on held-out test data), and future forecasts.
+
+% ======================
+% CONCLUSION
+% ======================
+\section{Conclusion and Future Work}
+
+This study has developed a cryptocurrency forecasting platform that brings together different AI modeling techniques in one easy-to-use web app. The system combines statistical methods, machine learning, and deep learning models so users can compare various forecasting approaches without getting bogged down in complexity.
+
+That said, there is definitely room to grow. Better predictions could be achieved by fine-tuning the models more carefully and rethinking how features are represented. The interface works well, but could be made smoother across different devices and easier to analyze multiple cryptocurrencies at once.
+
+Looking ahead, several possibilities exist: pulling in external data sources to capture market trends more accurately, experimenting with hybrid models that combine the best of different approaches, and adding real-time forecasting with live data feeds. Additional features that would help with decision-making---such as risk assessments and automated insights---would make the platform more practical for everyday use.
+
+In the end, this work has created a solid foundation that is both scalable and adaptable. With continued work on the models, design improvements, and real-time capabilities, this platform could become a genuinely useful tool for researchers and anyone trying to make sense of crypto markets.
+
+% ======================
+% REFERENCES
+% ======================
+\bibliographystyle{IEEEtran}
+
+\begin{thebibliography}{11}
+
+\bibitem{albahli2025}
+S.~Albahli, ``LSTM vs. Prophet: Achieving superior accuracy in dynamic electricity demand forecasting,'' \textit{Energies}, vol.~18, no.~2, p.~278, 2025. [Online]. Available: \url{https://doi.org/10.3390/en18020278}
+
+\bibitem{alessandretti2018}
+L.~Alessandretti, A.~ElBahrawy, L.~M. Aiello, and A.~Baronchelli, ``Anticipating cryptocurrency prices using machine learning,'' \textit{Complexity}, vol.~2018, pp.~1--16, 2018. [Online]. Available: \url{https://doi.org/10.1155/2018/8983590}
+
+\bibitem{alhashedi2021}
+K.~G. Al-Hashedi and P.~Magalingam, ``Financial fraud detection applying data mining techniques: A comprehensive review from 2009 to 2019,'' \textit{Computer Science Review}, vol.~40, p.~100402, 2021. [Online]. Available: \url{https://doi.org/10.1016/j.cosrev.2021.100402}
+
+\bibitem{bakar2017}
+N.~A. Bakar and S.~Rosbi, ``Autoregressive integrated moving average (ARIMA) model for forecasting cryptocurrency exchange rate in high volatility environment: A new insight of Bitcoin transaction,'' \textit{International Journal of Advanced Engineering Research and Science}, vol.~4, no.~11, pp.~130--137, 2017.
+
+\bibitem{chowdhury2020}
+R.~Chowdhury, M.~A. Rahman, M.~S. Rahman, and M.~R.~C. Mahdy, ``An approach to predict and forecast the price of constituents and index of cryptocurrency using machine learning,'' \textit{Physica A: Statistical Mechanics and its Applications}, vol.~551, p.~124569, 2020. [Online]. Available: \url{https://doi.org/10.1016/j.physa.2020.124569}
+
+\bibitem{garcia2023}
+F.~Garc\'{i}a, F.~Guijarro, J.~Oliver, and R.~Tamo\v{s}i\={u}nien\'{e}, ``Foreign exchange forecasting models: ARIMA and LSTM comparison,'' \textit{Engineering Proceedings}, vol.~39, no.~1, p.~81, 2023. [Online]. Available: \url{https://doi.org/10.3390/engproc2023039081}
+
+\bibitem{kashif2024}
+K.~Kashif and R.~\'{S}lepaczuk, ``LSTM-ARIMA as a hybrid approach in algorithmic investment strategies,'' \textit{arXiv preprint arXiv:2406.18206}, 2024. [Online]. Available: \url{https://arxiv.org/abs/2406.18206}
+
+\bibitem{mcnally2018}
+S.~McNally, J.~Roche, and S.~Caton, ``Predicting the price of Bitcoin using machine learning,'' in \textit{Proc. 26th Euromicro Int. Conf. on Parallel, Distributed and Network-based Processing (PDP)}, Cambridge, UK, Mar. 2018, pp.~339--343. [Online]. Available: \url{https://doi.org/10.1109/PDP.2018.00060}
+
+\bibitem{ren2022}
+Y.-S. Ren, C.-Q. Ma, X.-L. Kong, K.~Baltas, and Q.~Zureigat, ``Past, present, and future of the application of machine learning in cryptocurrency research,'' \textit{Research in International Business and Finance}, vol.~63, p.~101799, 2022. [Online]. Available: \url{https://doi.org/10.1016/j.ribaf.2022.101799}
+
+\bibitem{sailaja2024}
+J.~Sailaja, K.~N. Bhargavi, G.~L.~N. Vanguri, N.~Suryakala, and S.~Thiruveedula, ``Crypto currency price prediction on Ethereum using time series forecasting models ARIMA and Facebook Prophet models,'' in \textit{Proc. Int. Conf. on Computational Innovations and Emerging Trends (ICCIET 2024)}, Advances in Computer Science Research 112. Atlantis Press, 2024, pp.~1073--1084. [Online]. Available: \url{https://doi.org/10.2991/978-94-6463-471-6_102}
+
+\bibitem{sun2020}
+X.~L. Sun, M.~X. Liu, and Z.~Q. Sima, ``A novel cryptocurrency price trend forecasting model based on LightGBM,'' \textit{Finance Research Letters}, vol.~32, p.~101084, 2020. [Online]. Available: \url{https://doi.org/10.1016/j.frl.2018.12.032}
+
+\end{thebibliography}
+
+\end{document}

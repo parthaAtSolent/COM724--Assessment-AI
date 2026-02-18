@@ -1,20 +1,355 @@
-/* --- Custom Streamlit Styling --- */
 
-.logo-container {
-    position: absolute;
-    top: -51px;
-    left: 2px;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+
+/* ===============================
+   Reset & Base
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f3f4f6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* ===============================
+   Main Content Wrapper
+================================ */
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: transparent;
+}
+
+/* ===============================
+   Header (Apple Inc.)
+================================ */
+.header-container {
+    background-color: #000000;
+    padding: 20px 30px;
+    border-radius: 14px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-container h1 {
+    color: #ffffff !important;
+    font-size: 2rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+}
+
+/* ===============================
+   Card Base Style
+================================ */
+.card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    margin-bottom: 0;
+    height: 100%;
+}
+
+/* ===============================
+   Info + Today Horizontal Layout
+================================ */
+.info-today-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 25px;
+}
+
+/* Info Section Card */
+.info-card {
+    height: 100%;
+}
+
+.info-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #6b7280;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.info-item {
+    background-color: #f9fafb;
     border-radius: 12px;
-    padding: 6px;
-    background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    padding: 14px;
+    text-align: center;
+}
+
+.info-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.info-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Today Section Card */
+.today-card {
+    height: 100%;
+}
+
+.today-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #6b7280;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.today-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.today-item {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+}
+
+.today-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.today-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.today-change {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.today-time {
+    display: block;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+
+
+/* ===============================
+   Price Display Card
+================================ */
+.price-display {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.price-change {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.price-change.positive {
+    color: #16a34a;
+}
+
+.price-change.negative {
+    color: #dc2626;
+}
+
+/* ===============================
+   Chart Controls
+================================ */
+.chart-period-buttons {
+    display: flex;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.chart-period-btn {
+    background-color: #f3f4f6 !important;
+    color: #374151 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 6px 14px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+}
+
+.chart-period-btn.active {
+    background-color: #7c3aed !important;
+    color: #ffffff !important;
+}
+
+/* ===============================
+   Details Panel
+================================ */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.detail-item {
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin-top: 4px;
+}
+
+/* ===============================
+   Buy / Sell Panel
+================================ */
+.trading-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.trading-table th {
+    font-size: 0.8rem;
+    color: #6b7280;
+    padding-bottom: 6px;
+}
+
+.trading-table td {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.trading-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.buy-button {
+    flex: 1;
+    background-color: #7c3aed !important;
+    color: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
+
+.sell-button {
+    flex: 1;
+    background-color: #ede9fe !important;
+    color: #7c3aed !important;
+    border-radius: 12px !important;
+    padding: 14px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
+
+/* ===============================
+   Logo
+================================ */
+.logo-container {
+    background-color: #ffffff;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .logo-container img {
-    border-radius: 10px;
-    width: 80px;
-    height: auto;
+    width: 48px;
 }
+
+/* ===============================
+   Footer
+================================ */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* ===============================
+   Forecast Section
+================================ */
+.forecast-section {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ===============================
+   Responsive
+================================ */
+@media (max-width: 768px) {
+    .info-today-wrapper {
+        flex-direction: column;
+    }
+    
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .today-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .trading-buttons {
+        flex-direction: column;
+    }
+}
+
+

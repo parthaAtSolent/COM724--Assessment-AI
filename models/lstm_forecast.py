@@ -4,9 +4,9 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
-
+from plotly.subplots import make_subplots
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.optimizers import Adam
@@ -27,123 +27,242 @@ def build_lstm(sequence_length):
 
 
 def lstm_forecast(data, period, n_years, selected_name, sequence_length=60):
-    st.subheader("🧠 LSTM Forecasting")
+    # Create skeleton container for the entire chart section
+    with st.container():
+        # Create placeholder for skeleton
+        skeleton_placeholder = st.empty()
 
-    # Use Close price only
-    series = data[["Close"]].dropna()
+        # Show skeleton while processing
+        with skeleton_placeholder.container():
+            st.markdown("""
+            <style>
+            .skeleton {
+                background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+                background-size: 200% 100%;
+                animation: loading 1.5s infinite;
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .skeleton-header {
+                height: 30px;
+                width: 250px;
+                margin-bottom: 20px;
+            }
+            
+            .skeleton-metrics {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .skeleton-metric {
+                height: 70px;
+                flex: 1;
+                border-radius: 6px;
+            }
+            
+            .skeleton-chart {
+                height: 400px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+            
+            .skeleton-error {
+                height: 150px;
+                border-radius: 8px;
+            }
+            
+            @keyframes loading {
+                0% { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
+            }
+            </style>
+            """, unsafe_allow_html=True)
 
-    # Scale data
-    scaler = MinMaxScaler()
-    scaled = scaler.fit_transform(series)
+            # Skeleton header
+            st.markdown('<div class="skeleton skeleton-header"></div>',
+                        unsafe_allow_html=True)
 
-    # Create sequences
-    X, y = [], []
-    for i in range(sequence_length, len(scaled)):
-        X.append(scaled[i-sequence_length:i, 0])
-        y.append(scaled[i, 0])
+            # Skeleton metrics
+            st.markdown('<div class="skeleton-metrics">' +
+                        ''.join(['<div class="skeleton skeleton-metric"></div>' for _ in range(4)]) +
+                        '</div>', unsafe_allow_html=True)
 
-    X, y = np.array(X), np.array(y)
-    X = X.reshape(X.shape[0], X.shape[1], 1)
+            # Skeleton chart area
+            st.markdown('<div class="skeleton skeleton-chart"></div>',
+                        unsafe_allow_html=True)
+            st.markdown('<div class="skeleton skeleton-error"></div>',
+                        unsafe_allow_html=True)
 
-    # Train / test split
-    train_size = int(len(X) * 0.8)
-    X_train, X_test = X[:train_size], X[train_size:]
-    y_train, y_test = y[:train_size], y[train_size:]
+        # Process data in background
+        # Use Close price only
+        series = data[["Close"]].dropna()
 
-    st.info(f"Train sequences: {len(X_train)} | Test sequences: {len(X_test)}")
+        # Scale data
+        scaler = MinMaxScaler()
+        scaled = scaler.fit_transform(series)
 
-    with st.spinner("Training LSTM model..."):
+        # Create sequences
+        X, y = [], []
+        for i in range(sequence_length, len(scaled)):
+            X.append(scaled[i-sequence_length:i, 0])
+            y.append(scaled[i, 0])
+
+        X, y = np.array(X), np.array(y)
+        X = X.reshape(X.shape[0], X.shape[1], 1)
+
+        # Train / test split
+        train_size = int(len(X) * 0.8)
+        X_train, X_test = X[:train_size], X[train_size:]
+        y_train, y_test = y[:train_size], y[train_size:]
+
+        # Build and train LSTM model
         model = build_lstm(sequence_length)
         model.fit(
             X_train,
             y_train,
-            epochs=20,
+            epochs=10,
             batch_size=32,
             verbose=0
         )
 
-    # Predictions
-    test_pred = model.predict(X_test, verbose=0)
+        # Make predictions on test data
+        test_pred = model.predict(X_test, verbose=0)
 
-    y_test_inv = scaler.inverse_transform(y_test.reshape(-1, 1))
-    test_pred_inv = scaler.inverse_transform(test_pred)
+        # Inverse transform predictions
+        y_test_inv = scaler.inverse_transform(y_test.reshape(-1, 1)).flatten()
+        test_pred_inv = scaler.inverse_transform(test_pred).flatten()
 
-    rmse = np.sqrt(mean_squared_error(y_test_inv, test_pred_inv))
-    mae = mean_absolute_error(y_test_inv, test_pred_inv)
+        # Build correct test dates
+        test_dates = series.index[
+            train_size + sequence_length:
+            train_size + sequence_length + len(test_pred_inv)
+        ]
 
-    col1, col2 = st.columns(2)
-    col1.metric("RMSE", f"{rmse:.2f}")
-    col2.metric("MAE", f"{mae:.2f}")
+        # Calculate all metrics
+        rmse = np.sqrt(mean_squared_error(y_test_inv, test_pred_inv))
+        mae = mean_absolute_error(y_test_inv, test_pred_inv)
+        r2 = r2_score(y_test_inv, test_pred_inv)
 
-    # Future forecasting
-    future_preds = []
-    current_seq = scaled[-sequence_length:].reshape(1, sequence_length, 1)
+        # Calculate MAPE (with small epsilon to avoid division by zero)
+        epsilon = 1e-10
+        mape = np.mean(np.abs((y_test_inv - test_pred_inv) /
+                       (y_test_inv + epsilon))) * 100
 
-    for _ in range(period):
-        next_val = model.predict(current_seq, verbose=0)
-        future_preds.append(next_val[0, 0])
-        current_seq = np.append(
-            current_seq[:, 1:, :],
-            next_val.reshape(1, 1, 1),
-            axis=1
+        # Future forecasting
+        future_preds = []
+        current_seq = scaled[-sequence_length:].reshape(1, sequence_length, 1)
+
+        for _ in range(period):
+            next_val = model.predict(current_seq, verbose=0)
+            future_preds.append(next_val[0, 0])
+            current_seq = np.append(
+                current_seq[:, 1:, :],
+                next_val.reshape(1, 1, 1),
+                axis=1
+            )
+
+        future_preds = scaler.inverse_transform(
+            np.array(future_preds).reshape(-1, 1)
+        ).flatten()
+
+        future_dates = pd.date_range(
+            start=series.index[-1] + pd.Timedelta(days=1),
+            periods=period,
+            freq="D"
         )
 
-    future_preds = scaler.inverse_transform(
-        np.array(future_preds).reshape(-1, 1)
-    ).flatten()
+        # Clear the skeleton
+        skeleton_placeholder.empty()
 
-    future_dates = pd.date_range(
-        start=series.index[-1],
-        periods=period + 1,
-        freq="D"
-    )[1:]
+        # Now display the actual content
+        st.subheader(f"🧠 LSTM Forecast - {selected_name}")
 
-    # Plot
+        # Display model info
+        st.info(
+            f"Train sequences: {len(X_train)} | Test sequences: {len(X_test)} | Sequence length: {sequence_length}")
 
-    # Build correct test dates
-    test_dates = series.index[
-        train_size + sequence_length:
-        train_size + sequence_length + len(test_pred_inv)
-    ]
+        # Display metrics in columns
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("RMSE", f"{rmse:.2f}")
+        with col2:
+            st.metric("MAE", f"{mae:.2f}")
+        with col3:
+            st.metric("R² Score", f"{r2:.4f}")
+        with col4:
+            st.metric("MAPE", f"{mape:.2f}%")
 
-    fig = go.Figure()
+        # Create the actual chart with subplots like Random Forest
+        fig = make_subplots(rows=2, cols=1, shared_xaxes=True, vertical_spacing=0.05,
+                            row_heights=[0.7, 0.3],
+                            subplot_titles=('Price Forecast', 'Prediction Error'))
 
-    fig.add_trace(go.Scatter(
-        x=series.index,
-        y=series["Close"],
-        name="Historical",
-        line=dict(width=2)
-    ))
+        # Historical data
+        fig.add_trace(go.Scatter(
+            x=series.index,
+            y=series["Close"],
+            name="Historical",
+            line=dict(color='#1f77b4', width=2),
+            mode='lines'
+        ), row=1, col=1)
 
-    fig.add_trace(go.Scatter(
-        x=test_dates,
-        y=test_pred_inv.flatten(),
-        name="Test Prediction",
-        line=dict(dash="dash")
-    ))
+        # Test predictions
+        fig.add_trace(go.Scatter(
+            x=test_dates,
+            y=test_pred_inv,
+            name="Validation",
+            line=dict(color='#ff7f0e', width=2, dash='dash'),
+            mode='lines'
+        ), row=1, col=1)
 
-    fig.add_trace(go.Scatter(
-        x=future_dates,
-        y=future_preds,
-        name="Forecast",
-        line=dict(width=3, dash="dash")
-    ))
+        # Future forecast
+        fig.add_trace(go.Scatter(
+            x=future_dates,
+            y=future_preds,
+            name="LSTM Forecast",
+            line=dict(color='#2ca02c', width=3),
+            mode='lines'
+        ), row=1, col=1)
 
-    fig.update_layout(
-        title=f"LSTM Forecast – {selected_name}",
-        xaxis_title="Date",
-        yaxis_title="Price",
-        hovermode="x unified",
-        height=500
-    )
+        # Error plot
+        errors = y_test_inv - test_pred_inv
+        fig.add_trace(go.Scatter(
+            x=test_dates,
+            y=errors,
+            name="Error",
+            line=dict(color='#d62728', width=1),
+            mode='lines'
+        ), row=2, col=1)
 
-    st.plotly_chart(fig, use_container_width=True)
+        fig.add_hline(y=0, line_dash="dash", line_color="gray",
+                      opacity=0.5, row=2, col=1)
 
-    # Forecast table
-    forecast_df = pd.DataFrame(
-        {"Forecast": future_preds},
-        index=future_dates
-    )
+        fig.update_layout(
+            title=f'LSTM Forecast - {selected_name}',
+            height=600,
+            hovermode='x unified',
+            showlegend=True
+        )
 
-    st.subheader("📊 Forecast Values")
-    st.dataframe(forecast_df.tail(10))
+        fig.update_xaxes(title_text="Date", row=2, col=1)
+        fig.update_yaxes(title_text="Price (USD)", row=1, col=1)
+        fig.update_yaxes(title_text="Error", row=2, col=1)
+
+        st.plotly_chart(fig, use_container_width=True)
+
+        # Forecast table (optional - you can remove if not needed)
+        with st.expander("📊 View Forecast Values"):
+            forecast_df = pd.DataFrame(
+                {"Forecast": future_preds},
+                index=future_dates
+            )
+            st.dataframe(forecast_df)
+
+    return {
+        'forecast': pd.Series(future_preds, index=future_dates),
+        'historical': series['Close'],
+        'test_predictions': pd.Series(test_pred_inv, index=test_dates),
+        'metrics': {'rmse': rmse, 'mae': mae, 'r2': r2, 'mape': mape}
+    }

@@ -1,14 +1,17 @@
 # 🔹 Forecasting = numeric prediction + time
-# 🔹 Prediction = any informed statement(/category, /probablity, /numeric value) about an outcome
-
+# 🔹 Prediction = any informed statement(/category, /probability, /numeric value) about an outcome
 
 import streamlit as st
-from data.data_loader import load_data, CRYPTOS
-from models.prophet_forecast import prophet_forecast
-from models.arima_forecast import arima_forecast
-from models.lstm_forecast import lstm_forecast
-from models.random_forest_forecast import random_forest_forecast
+from data.data_loader import load_data
 from utils.logo import load_custom_css, display_logo
+from components.sidebar import render_sidebar
+from components.header import render_header
+from components.info import render_info_section
+from components.chart_container import render_chart_container
+from components.today_section import render_today_section
+from components.details_grid import render_details_grid
+from components.trade_section import render_trade_section
+from components.forecast import execute_forecasts
 
 
 # ---------------------------------------------------
@@ -17,7 +20,8 @@ from utils.logo import load_custom_css, display_logo
 st.set_page_config(
     page_title="Solent Intelligence - Crypto Price Forecasting",
     page_icon="📈",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # ---------------------------------------------------
@@ -32,50 +36,75 @@ display_logo("assets/logo2.png")
 
 
 def main():
-    st.title('Cryptocurrency Price Forecasting Application')
+    """Main application function"""
 
-    # Sidebar configuration
-    st.sidebar.title("Configuration")
-    selected_models = st.sidebar.multiselect(
-        "Select forecasting models:",
-        ["Prophet", "ARIMA", "LSTM", "Random Forest"],
-        default=["Random Forest"]
-    )
+    # Render sidebar and get configuration
+    config = render_sidebar()
 
-    selected_name = st.selectbox(
-        'Select cryptocurrency for prediction',
-        list(CRYPTOS.values())
-    )
+    # Load data based on selected cryptocurrency
+    data = load_data(config["selected_crypto"])
 
-    # Get the crypto symbol
-    selected_crypto = [k for k, v in CRYPTOS.items() if v == selected_name][0]
+    # Main content area
+    st.markdown("<div class='main-content'>", unsafe_allow_html=True)
 
-    # Forecast duration
-    n_years = st.slider('Years of prediction:', 1, 5)
-    period = n_years * 365
+    if data is not None and not data.empty:
+        # 1. Header with name, symbol, and price
+        render_header(data, config["selected_name"], config["selected_crypto"])
 
-    # Load data
-    data = load_data(selected_crypto)
+        # 2. Horizontal layout for Info and Today sections
+        st.markdown("<div class='info-today-wrapper'>", unsafe_allow_html=True)
 
-    if data is not None:
-        # Show data
-        st.subheader('Raw Data')
-        st.write(data.tail())
+        # Create two columns for the horizontal layout
+        col1, col2 = st.columns(2)
 
-        # Run selected models
-        if "Prophet" in selected_models:
-            prophet_forecast(data, period, n_years, selected_name)
+        with col1:
+            # Info section card (left)
+            render_info_section(data, config["selected_crypto"])
 
-        if "ARIMA" in selected_models:
-            arima_forecast(data, period, n_years, selected_name)
+        with col2:
+            # Today section card (right)
+            render_today_section(data)
 
-        if "LSTM" in selected_models:
-            lstm_forecast(data, period, n_years, selected_name)
+        st.markdown("</div>", unsafe_allow_html=True)
 
-        if "Random Forest" in selected_models:
-            random_forest_forecast(data, period, n_years, selected_name)
+        # 3. Main chart with period selector
+        render_chart_container(data)
+
+        # 6. Forecasts section
+        st.markdown("<div class='forecast-section'>", unsafe_allow_html=True)
+
+        execute_forecasts(
+            data=data,
+            period=config["period"],
+            n_years=config["n_years"],
+            selected_name=config["selected_name"],
+            selected_models=config["selected_models"],
+            confidence_interval=config["confidence_interval"]
+        )
+        st.markdown("</div>", unsafe_allow_html=True)
+
     else:
-        st.error("Failed to load data. Please try again.")
+        st.error("🚨 Failed to load cryptocurrency data.")
+        st.info("""
+        Possible reasons:
+        1. Network connection issue
+        2. Invalid cryptocurrency symbol
+        3. Data source temporarily unavailable
+        
+        Please try:
+        - Checking your internet connection
+        - Selecting a different cryptocurrency
+        - Refreshing the page
+        """)
+
+    # Footer
+    st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="footer">
+        <p>Solent Intelligence Crypto Forecasting Platform | Data for informational purposes only</p>
+        <p>Past performance is not indicative of future results</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":
