@@ -210,10 +210,11 @@ def lstm_forecast(data, period, n_years, selected_name, sequence_length=15):
                       opacity=0.5, row=2, col=1)
 
         fig.update_layout(
-            title=f'LSTM Forecast - {selected_name}',
-            height=600,
+            # title=f'LSTM Forecast - {selected_name}',
+            height=500,
             hovermode='x unified',
-            showlegend=True
+            # Reduced margins
+            showlegend=True, margin=dict(l=40, r=40, t=40, b=40)
         )
 
         fig.update_xaxes(title_text="Date", row=2, col=1)

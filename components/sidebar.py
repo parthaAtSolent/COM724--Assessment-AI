@@ -41,23 +41,13 @@ def render_sidebar():
 
     period = n_years * 365
 
-    # Advanced options (optional)
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("### 🔧 Advanced Options")
-    show_raw_data = st.sidebar.checkbox("Show raw data", value=True)
-    confidence_interval = st.sidebar.slider(
-        "Confidence interval (%)",
-        min_value=80,
-        max_value=99,
-        value=95
-    )
-
+    # Return configuration without advanced options
     return {
         "selected_models": selected_models,
         "selected_crypto": selected_crypto,
         "selected_name": selected_name,
         "period": period,
         "n_years": n_years,
-        "show_raw_data": show_raw_data,
-        "confidence_interval": confidence_interval / 100  # Convert to decimal
+        "show_raw_data": True,  # Set to default value
+        "confidence_interval": 0.95  # Set to default value (95%)
     }

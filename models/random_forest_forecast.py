@@ -189,8 +189,9 @@ def random_forest_forecast(data, period, n_years, selected_name, confidence_inte
                       opacity=0.5, row=2, col=1)
 
         fig.update_layout(
-            title=f'{selected_name} - Random Forest Forecast',
-            height=600, hovermode='x unified', showlegend=True
+            # title=f'{selected_name} - Random Forest Forecast',
+            # Reduced margins
+            height=500, hovermode='x unified', showlegend=True, margin=dict(l=40, r=40, t=40, b=40)
         )
         fig.update_xaxes(title_text="Date", row=2, col=1)
         fig.update_yaxes(title_text="Price (USD)", row=1, col=1)

@@ -127,8 +127,9 @@ def arima_forecast(data, period, n_years, selected_name):
                       opacity=0.5, row=2, col=1)
 
         fig.update_layout(
-            title=f'ARIMA({auto_model.order[0]},{auto_model.order[1]},{auto_model.order[2]}) Forecast - {selected_name}',
-            height=600, hovermode='x unified', showlegend=True
+            # title=f'ARIMA({auto_model.order[0]},{auto_model.order[1]},{auto_model.order[2]})',
+            # Reduced margins
+            height=500, hovermode='x unified', showlegend=True, margin=dict(l=40, r=40, t=40, b=40)
         )
         fig.update_xaxes(title_text="Date", row=2, col=1)
         fig.update_yaxes(title_text="Price (USD)", row=1, col=1)

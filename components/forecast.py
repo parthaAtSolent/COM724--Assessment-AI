@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 
 
 def execute_forecasts(data, period, n_years, selected_name, selected_models, confidence_interval):
+
     if not selected_models:
         st.warning("⚠️ Please select at least one forecasting model.")
         st.session_state.prev_selected_models = []
@@ -41,44 +42,50 @@ def execute_forecasts(data, period, n_years, selected_name, selected_models, con
             height=0,
         )
 
-    # Use the same heading level as in chart_container
     st.markdown("## Price Forecasts")
-
-    st.markdown(
-        f"### Forecast Horizon: **{n_years} year{'s' if n_years > 1 else ''}**"
-    )
 
     if selected_models:
         tabs = st.tabs([f"📈 {model}" for model in selected_models])
 
         for i, model_name in enumerate(selected_models):
+
             with tabs[i]:
-                st.markdown(f"### {model_name} Forecast")
+
+                # NEW TITLE (replaces Forecast Horizon)
+                st.markdown(
+                    f"### {model_name} Forecast: **{selected_name} ({n_years} year{'s' if n_years > 1 else ''})**"
+                )
 
                 conf_str = f"{confidence_interval:.2f}"
                 model_key = f"{model_name}_{selected_name}_{n_years}_{conf_str}"
 
                 if model_key not in st.session_state.forecast_results:
+
                     with st.spinner(f"Training {model_name} model..."):
+
                         try:
                             if model_name == "Prophet":
                                 from models.prophet_forecast import prophet_forecast
                                 result = prophet_forecast(
                                     data, period, n_years, selected_name)
+
                             elif model_name == "ARIMA":
                                 from models.arima_forecast import arima_forecast
                                 result = arima_forecast(
                                     data, period, n_years, selected_name)
+
                             elif model_name == "LSTM":
                                 from models.lstm_forecast import lstm_forecast
                                 result = lstm_forecast(
                                     data, period, n_years, selected_name)
+
                             elif model_name == "Random Forest":
                                 from models.random_forest_forecast import random_forest_forecast
                                 result = random_forest_forecast(
                                     data, period, n_years, selected_name, confidence_interval)
 
                             st.session_state.forecast_results[model_key] = result
+
                         except Exception as e:
                             st.error(f"Error executing {model_name}: {str(e)}")
                             st.session_state.forecast_results[model_key] = {
@@ -96,23 +103,31 @@ def execute_forecasts(data, period, n_years, selected_name, selected_models, con
                         f"Failed to generate {model_name} forecast: {result['error']}")
                     continue
 
-                # Display info
+                # Info
                 if "info" in result:
                     st.info(result["info"])
 
-                # Display metrics
-                if "metrics" in result:
-                    metrics = result["metrics"]
-                    col1, col2, col3, col4 = st.columns(4)
-                    with col1:
-                        st.metric("RMSE", f"{metrics.get('rmse', 0):.2f}")
-                    with col2:
-                        st.metric("MAE", f"{metrics.get('mae', 0):.2f}")
-                    with col3:
-                        st.metric("R² Score", f"{metrics.get('r2', 0):.4f}")
-                    with col4:
-                        st.metric("MAPE", f"{metrics.get('mape', 0):.2f}%")
-
-                # Display figure
+                # ---- CHART FIRST ----
                 if "figure" in result:
                     st.plotly_chart(result["figure"], use_container_width=True)
+
+                # ---- METRICS MOVED BELOW ----
+                if "metrics" in result:
+
+                    metrics = result["metrics"]
+
+                    st.markdown("### Model Performance")
+
+                    col1, col2, col3, col4 = st.columns(4)
+
+                    with col1:
+                        st.metric("RMSE", f"{metrics.get('rmse', 0):.2f}")
+
+                    with col2:
+                        st.metric("MAE", f"{metrics.get('mae', 0):.2f}")
+
+                    with col3:
+                        st.metric("R² Score", f"{metrics.get('r2', 0):.4f}")
+
+                    with col4:
+                        st.metric("MAPE", f"{metrics.get('mape', 0):.2f}%")

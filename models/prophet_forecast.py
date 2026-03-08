@@ -181,9 +181,13 @@ def prophet_forecast(data, period, n_years, selected_name):
         fig.add_hline(y=0, line_dash="dash", line_color="gray",
                       opacity=0.5, row=2, col=1)
 
+        # In the figure creation section, update the layout:
         fig.update_layout(
-            title=f'Prophet Forecast - {selected_name}',
-            height=600, hovermode='x unified', showlegend=True
+            # title=f'Prophet Forecast - {selected_name}',
+            height=500,  # Reduced from 600
+            hovermode='x unified',
+            showlegend=True,
+            margin=dict(l=40, r=40, t=40, b=40)  # Reduced margins
         )
         fig.update_xaxes(title_text="Date", row=2, col=1)
         fig.update_yaxes(title_text="Price (USD)", row=1, col=1)
