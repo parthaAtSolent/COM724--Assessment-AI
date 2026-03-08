@@ -24,7 +24,7 @@ def render_today_section(data):
 
     st.html(
         f"""
-        <div class="card today-card style="height:100%;">
+        <div class="card today-card" style="height:100%;">
             <div class="today-title">TODAY</div>
             
             <div class="today-grid">

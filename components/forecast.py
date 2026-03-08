@@ -41,8 +41,9 @@ def execute_forecasts(data, period, n_years, selected_name, selected_models, con
             height=0,
         )
 
-    st.markdown("---")
-    st.markdown("## 🔮 Price Forecasts")
+    # Use the same heading level as in chart_container
+    st.markdown("## Price Forecasts")
+
     st.markdown(
         f"### Forecast Horizon: **{n_years} year{'s' if n_years > 1 else ''}**"
     )

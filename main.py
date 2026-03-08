@@ -68,21 +68,25 @@ def main():
 
         st.markdown("</div>", unsafe_allow_html=True)
 
-        # 3. Main chart with period selector
-        render_chart_container(data)
+        # 3. Create horizontal layout for chart and forecasts
+        # Chart takes 1/3, forecasts take 2/3 of the space
+        chart_col, forecast_col = st.columns([1, 2])
 
-        # 6. Forecasts section
-        # st.markdown("<div class='forecast-section'>", unsafe_allow_html=True)
+        with chart_col:
+            # Left side - Chart container (1/3 of space)
+            render_chart_container(data)
 
-        execute_forecasts(
-            data=data,
-            period=config["period"],
-            n_years=config["n_years"],
-            selected_name=config["selected_name"],
-            selected_models=config["selected_models"],
-            confidence_interval=config["confidence_interval"]
-        )
-        st.markdown("</div>", unsafe_allow_html=True)
+        with forecast_col:
+            # Right side - Forecasts section (2/3 of space)
+            with st.container():
+                execute_forecasts(
+                    data=data,
+                    period=config["period"],
+                    n_years=config["n_years"],
+                    selected_name=config["selected_name"],
+                    selected_models=config["selected_models"],
+                    confidence_interval=config["confidence_interval"]
+                )
 
     else:
         st.error("🚨 Failed to load cryptocurrency data.")
