@@ -5,40 +5,6 @@ import pandas as pd
 from config.settings import START_DATE, TODAY
 from utils.preprocessing import preprocessing
 
-CRYPTOS = {
-    'BTC-USD': 'Bitcoin',
-    'ETH-USD': 'Ethereum',
-    'BNB-USD': 'Binance Coin',
-    'XRP-USD': 'Ripple',
-    'SOL-USD': 'Solana',
-    'ADA-USD': 'Cardano',
-    'DOGE-USD': 'Dogecoin',
-    'DOT-USD': 'Polkadot',
-    'AVAX-USD': 'Avalanche',
-    'MATIC-USD': 'Polygon',
-    'SHIB-USD': 'Shiba Inu',
-    'LTC-USD': 'Litecoin',
-    'TRX-USD': 'TRON',
-    'BCH-USD': 'Bitcoin Cash',
-    'ATOM-USD': 'Cosmos',
-    'LINK-USD': 'Chainlink',
-    'XLM-USD': 'Stellar',
-    'UNI-USD': 'Uniswap',
-    'XMR-USD': 'Monero',
-    'ETC-USD': 'Ethereum Classic',
-    'NEAR-USD': 'NEAR Protocol',
-    'VET-USD': 'VeChain',
-    'ICP-USD': 'Internet Computer',
-    'FIL-USD': 'Filecoin',
-    'EOS-USD': 'EOS',
-    'APT-USD': 'Aptos',
-    'SAND-USD': 'The Sandbox',
-    'AAVE-USD': 'Aave',
-    'MANA-USD': 'Decentraland',
-    'THETA-USD': 'Theta Network',
-    'EGLD-USD': 'MultiversX (Elrond)'
-}
-
 
 @st.cache_data(show_spinner=False)
 def load_data(ticker):

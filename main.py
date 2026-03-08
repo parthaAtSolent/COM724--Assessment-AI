@@ -17,6 +17,7 @@ from components.forecast import execute_forecasts
 # ---------------------------------------------------
 # Page Configuration
 # ---------------------------------------------------
+
 st.set_page_config(
     page_title="Solent Intelligence - Crypto Price Forecasting",
     page_icon="📈",

@@ -1,5 +1,5 @@
 import streamlit as st
-from data.data_loader import CRYPTOS
+from config.settings import CRYPTOS
 
 
 def render_sidebar():
