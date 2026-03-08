@@ -71,7 +71,7 @@ def main():
         render_chart_container(data)
 
         # 6. Forecasts section
-        st.markdown("<div class='forecast-section'>", unsafe_allow_html=True)
+        # st.markdown("<div class='forecast-section'>", unsafe_allow_html=True)
 
         execute_forecasts(
             data=data,

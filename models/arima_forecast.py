@@ -179,7 +179,7 @@ def arima_forecast(data, period, n_years, selected_name):
         skeleton_placeholder.empty()
 
         # Now display the actual content
-        st.subheader(f"📈 ARIMA Forecast - {selected_name}")
+        st.subheader(f"{selected_name}")
 
         # Display model info
         st.info(
@@ -254,13 +254,13 @@ def arima_forecast(data, period, n_years, selected_name):
 
         st.plotly_chart(fig, use_container_width=True)
 
-        # Forecast table
-        with st.expander("📊 View Forecast Values"):
-            forecast_df = pd.DataFrame({
-                "Date": future_dates,
-                "Forecast": forecast.values
-            }).set_index("Date")
-            st.dataframe(forecast_df)
+        # # Forecast table
+        # with st.expander("📊 View Forecast Values"):
+        #     forecast_df = pd.DataFrame({
+        #         "Date": future_dates,
+        #         "Forecast": forecast.values
+        #     }).set_index("Date")
+        #     st.dataframe(forecast_df)
 
     return {
         'forecast': pd.Series(forecast.values, index=future_dates),

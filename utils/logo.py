@@ -23,7 +23,7 @@ def display_logo(logo_path: str):
                 <div style="display: flex; justify-content: flex-start;">
                     <div style="height: 120px; width: 120px; 
                                 border-radius: 20px;">
-                        <img src="data:image/png;base64,{encoded_logo}" alt="Logo">
+                        <img src="data:image/png;base64,{encoded_logo}" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             """,
@@ -35,38 +35,41 @@ def display_logo(logo_path: str):
 
 def get_crypto_logo_url(selected_name):
     """Get cryptocurrency logo URL based on the selected name."""
+
+    # Mapping of cryptocurrency names to their CoinGecko image IDs
     logo_url_mapping = {
-        'Bitcoin': 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
-        'Ethereum': 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
-        'Binance Coin': 'https://cryptologos.cc/logos/binance-coin-bnb-logo.png',
-        'Ripple': 'https://cryptologos.cc/logos/xrp-xrp-logo.png',
-        'Solana': 'https://cryptologos.cc/logos/solana-sol-logo.png',
-        'Cardano': 'https://cryptologos.cc/logos/cardano-ada-logo.png',
-        'Dogecoin': 'https://cryptologos.cc/logos/dogecoin-doge-logo.png',
-        'Polkadot': 'https://cryptologos.cc/logos/polkadot-new-dot-logo.png',
-        'Avalanche': 'https://cryptologos.cc/logos/avalanche-avax-logo.png',
-        'Polygon': 'https://cryptologos.cc/logos/polygon-matic-logo.png',
-        'Shiba Inu': 'https://cryptologos.cc/logos/shiba-inu-shib-logo.png',
-        'Litecoin': 'https://cryptologos.cc/logos/litecoin-ltc-logo.png',
-        'TRON': 'https://cryptologos.cc/logos/tron-trx-logo.png',
-        'Bitcoin Cash': 'https://cryptologos.cc/logos/bitcoin-cash-bch-logo.png',
-        'Cosmos': 'https://cryptologos.cc/logos/cosmos-atom-logo.png',
-        'Chainlink': 'https://cryptologos.cc/logos/chainlink-link-logo.png',
-        'Stellar': 'https://cryptologos.cc/logos/stellar-xlm-logo.png',
-        'Uniswap': 'https://cryptologos.cc/logos/uniswap-uni-logo.png',
-        'Monero': 'https://cryptologos.cc/logos/monero-xmr-logo.png',
-        'Ethereum Classic': 'https://cryptologos.cc/logos/ethereum-classic-etc-logo.png',
-        'NEAR Protocol': 'https://cryptologos.cc/logos/near-protocol-near-logo.png',
-        'VeChain': 'https://cryptologos.cc/logos/vechain-vet-logo.png',
-        'Internet Computer': 'https://cryptologos.cc/logos/internet-computer-icp-logo.png',
-        'Filecoin': 'https://cryptologos.cc/logos/filecoin-fil-logo.png',
-        'EOS': 'https://cryptologos.cc/logos/eos-eos-logo.png',
-        'Aptos': 'https://cryptologos.cc/logos/aptos-apt-logo.png',
-        'The Sandbox': 'https://cryptologos.cc/logos/the-sandbox-sand-logo.png',
-        'Aave': 'https://cryptologos.cc/logos/aave-aave-logo.png',
-        'Decentraland': 'https://cryptologos.cc/logos/decentraland-mana-logo.png',
-        'Theta Network': 'https://cryptologos.cc/logos/theta-network-theta-logo.png',
-        'MultiversX (Elrond)': 'https://cryptologos.cc/logos/multiversx-egld-logo.png'
+        'Bitcoin': 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
+        'Ethereum': 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
+        'Binance Coin': 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png',
+        'Ripple': 'https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png',
+        'Solana': 'https://assets.coingecko.com/coins/images/4128/large/solana.png',
+        'Cardano': 'https://assets.coingecko.com/coins/images/975/large/cardano.png',
+        'Dogecoin': 'https://assets.coingecko.com/coins/images/5/large/dogecoin.png',
+        'Polkadot': 'https://assets.coingecko.com/coins/images/12171/large/polkadot.png',
+        'Avalanche': 'https://assets.coingecko.com/coins/images/12559/large/Avalanche_Circle_RedWhite.png',
+        'Polygon': 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png',
+        'Shiba Inu': 'https://assets.coingecko.com/coins/images/11939/large/shiba.png',
+        'Litecoin': 'https://assets.coingecko.com/coins/images/2/large/litecoin.png',
+        'TRON': 'https://assets.coingecko.com/coins/images/1094/large/tron-logo.png',
+        'Bitcoin Cash': 'https://assets.coingecko.com/coins/images/780/large/bitcoin-cash-circle.png',
+        'Cosmos': 'https://assets.coingecko.com/coins/images/1481/large/cosmos_hub.png',
+        'Chainlink': 'https://assets.coingecko.com/coins/images/877/large/chainlink-new-logo.png',
+        'Stellar': 'https://assets.coingecko.com/coins/images/100/large/Stellar_symbol_black_RGB.png',
+        'Uniswap': 'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png',
+        'Monero': 'https://assets.coingecko.com/coins/images/69/large/monero_logo.png',
+        'Ethereum Classic': 'https://assets.coingecko.com/coins/images/453/large/ethereum-classic-logo.png',
+        'NEAR Protocol': 'https://assets.coingecko.com/coins/images/10365/large/near_icon.png',
+        'VeChain': 'https://assets.coingecko.com/coins/images/1167/large/VET_Token_Icon.png',
+        'Internet Computer': 'https://assets.coingecko.com/coins/images/14495/large/Internet_Computer_logo.png',
+        'Filecoin': 'https://assets.coingecko.com/coins/images/12817/large/filecoin.png',
+        'EOS': 'https://assets.coingecko.com/coins/images/738/large/eos-eos-logo.png',
+        'Aptos': 'https://assets.coingecko.com/coins/images/26455/large/aptos_round.png',
+        'The Sandbox': 'https://assets.coingecko.com/coins/images/12129/large/sandbox_logo.jpg',
+        'Aave': 'https://assets.coingecko.com/coins/images/12645/large/AAVE.png',
+        'Decentraland': 'https://assets.coingecko.com/coins/images/878/large/decentraland-mana.png',
+        'Theta Network': 'https://assets.coingecko.com/coins/images/2538/large/theta-token-logo.png',
+        'MultiversX (Elrond)': 'https://assets.coingecko.com/coins/images/12335/large/elrond_egld_logo.png'
     }
 
-    return logo_url_mapping.get(selected_name)
+    # Return the URL or a default placeholder if not found
+    return logo_url_mapping.get(selected_name, 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png')

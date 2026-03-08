@@ -14,7 +14,7 @@ def render_sidebar():
     selected_models = st.sidebar.multiselect(
         "Select models to compare:",
         ["Prophet", "ARIMA", "LSTM", "Random Forest"],
-        default=["ARIMA"]
+        default=["Prophet"]
     )
 
     # Cryptocurrency selection

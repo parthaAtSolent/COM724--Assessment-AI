@@ -189,6 +189,9 @@ def random_forest_forecast(data, period, n_years, selected_name, confidence_inte
         future_dates = pd.date_range(
             start=dates[-1] + pd.Timedelta(days=1), periods=period, freq='D')
 
+        # Now display the actual content
+        st.subheader(f"{selected_name}")
+
         # Clear the skeleton
         skeleton_placeholder.empty()
 

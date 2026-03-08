@@ -122,7 +122,7 @@ def lstm_forecast(data, period, n_years, selected_name, sequence_length=60):
         model.fit(
             X_train,
             y_train,
-            epochs=10,
+            epochs=50,
             batch_size=32,
             verbose=0
         )
@@ -177,7 +177,7 @@ def lstm_forecast(data, period, n_years, selected_name, sequence_length=60):
         skeleton_placeholder.empty()
 
         # Now display the actual content
-        st.subheader(f"🧠 LSTM Forecast - {selected_name}")
+        st.subheader(f"{selected_name}")
 
         # Display model info
         st.info(
@@ -253,12 +253,12 @@ def lstm_forecast(data, period, n_years, selected_name, sequence_length=60):
         st.plotly_chart(fig, use_container_width=True)
 
         # Forecast table (optional - you can remove if not needed)
-        with st.expander("📊 View Forecast Values"):
-            forecast_df = pd.DataFrame(
-                {"Forecast": future_preds},
-                index=future_dates
-            )
-            st.dataframe(forecast_df)
+        # with st.expander("📊 View Forecast Values"):
+        #     forecast_df = pd.DataFrame(
+        #         {"Forecast": future_preds},
+        #         index=future_dates
+        #     )
+        #     st.dataframe(forecast_df)
 
     return {
         'forecast': pd.Series(future_preds, index=future_dates),

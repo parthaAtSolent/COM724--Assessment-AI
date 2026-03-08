@@ -132,7 +132,7 @@ def prophet_forecast(data, period, n_years, selected_name):
         skeleton_placeholder.empty()
 
         # Now display the actual content
-        st.subheader(f"📈 Prophet Forecast - {selected_name}")
+        st.subheader(f"{selected_name}")
 
         # Display model info
         st.info(f"Train size: {len(train_df)} | Test size: {len(test_df)}")
@@ -223,10 +223,10 @@ def prophet_forecast(data, period, n_years, selected_name):
         # =========================
         # 4️⃣ FORECAST TABLE
         # =========================
-        with st.expander("📊 View Forecast Values"):
-            forecast_df = future_only[["ds", "yhat"]].set_index("ds")
-            forecast_df.columns = ["Forecast"]
-            st.dataframe(forecast_df)
+        # with st.expander("📊 View Forecast Values"):
+        #     forecast_df = future_only[["ds", "yhat"]].set_index("ds")
+        #     forecast_df.columns = ["Forecast"]
+        #     st.dataframe(forecast_df)
 
     return {
         'forecast': pd.Series(future_only["yhat"].values, index=future_only["ds"]),

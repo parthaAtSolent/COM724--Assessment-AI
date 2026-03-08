@@ -53,30 +53,6 @@ def load_data(ticker):
         if isinstance(data.columns, pd.MultiIndex):
             data.columns = [col[0] for col in data.columns]
 
-        # -------------------------------
-        # Create directory: data/<ticker>/
-        # -------------------------------
-        base_dir = "data"
-        ticker_dir = os.path.join(base_dir, ticker)
-
-        os.makedirs(ticker_dir, exist_ok=True)
-
-        # -------------------------------
-        # CSV file name and path
-        # -------------------------------
-        file_name = f"{ticker}_from_{START_DATE}_till_{TODAY}.csv"
-        file_path = os.path.join(ticker_dir, file_name)
-
-        # -------------------------------
-        # Save to CSV
-        # -------------------------------
-        data.to_csv(file_path, index=False)
-
-        print(f"Data saved to: {file_path}")
-
-        # return data
-
-        # This will automatically find and load the CSV file
         btc_preprocessed = preprocessing(data)
 
         # print(btc_preprocessed.head())
