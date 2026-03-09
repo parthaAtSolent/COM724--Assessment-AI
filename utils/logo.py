@@ -13,19 +13,36 @@ def load_custom_css(css_path: str):
 
 
 def display_logo(logo_path: str):
-    """Display app logo with blur and rounded background."""
+    """Display app logo with fully rounded circular display."""
     if os.path.exists(logo_path):
         with open(logo_path, "rb") as f:
             encoded_logo = base64.b64encode(f.read()).decode()
 
         st.markdown(
             f"""
-                <div style="display: flex; justify-content: flex-start;">
-                    <div style="height: 120px; width: 120px; 
-                                border-radius: 20px;">
-                        <img src="data:image/png;base64,{encoded_logo}" alt="Logo" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+            <div style="
+                display:flex;
+                justify-content: flex-start;
+                margin-bottom: -80px;
+            ">
+                <div style="
+                    width:auto;
+                    height:250px;
+                    background:white;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    overflow:hidden;
+                ">
+                    <img src="data:image/png;base64,{encoded_logo}"
+                        style="
+                            width:85%;
+                            height:50%;
+                            border-radius:10%;
+                            object-fit:contain;
+                        ">
                 </div>
+            </div>
             """,
             unsafe_allow_html=True
         )
