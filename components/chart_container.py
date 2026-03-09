@@ -94,7 +94,11 @@ def render_chart_container(data):
     fig.update_xaxes(showticklabels=False)
     fig.update_yaxes(tickfont=dict(size=9))
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="main_candlestick_chart"
+    )
 
     if len(filtered_data) > 0:
         last_row = filtered_data.iloc[-1]
