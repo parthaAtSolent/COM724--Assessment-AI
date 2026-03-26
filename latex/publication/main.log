@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.22.0 (MiKTeX 25.4) (format=lualatex 2025.12.29)  11 MAR 2026 13:41
+This is LuaHBTeX, Version 1.22.0 (MiKTeX 25.4) (format=lualatex 2025.12.29)  25 MAR 2026 13:37
  restricted system commands enabled.
 **main.tex
 (./main.tex
@@ -570,211 +570,182 @@ Package hyperref Info: Link coloring ON on input line 33.
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
 (Font)              using `TU/ptm/bx/n' instead on input line 56.
 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
+
+(C:/Users/parth/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
+
+
+(C:/Users/parth/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 62.
+(Font)              using `TU/ptm/bx/n' instead on input line 63.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 70.
+(Font)              using `TU/ptm/m/n' instead on input line 71.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 90--91
-[]\TU/ptm/m/sc/10 The Au-tore-gres-sive In-te-grated Mov-ing Av-er-age
- []
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 97.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 99.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 101.
 
 [1
 Non-PDF special ignored!{C:/Users/parth/AppData/Local/MiKTeX/fonts/map/pdftex/pd
 ftex.map}
 
 
-] [2] [3]
-<../assets/pipeline.png, id=334, 2762.32pt x 1541.76pt>
-File: ../assets/pipeline.png Graphic file (type png)
-<use ../assets/pipeline.png>
-Package luatex.def Info: ../assets/pipeline.png  used on input line 148.
-(luatex.def)             Requested size: 258.0pt x 143.99855pt.
+]
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 148--149
- [][] 
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 103.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+[]\TU/ptm/m/sc/10 Ran-dom For-est: Tree count is searched over
  []
 
-[4<../assets/pipeline.png>]
-<../assets/research_infographic.png, id=349, 2762.32pt x 1541.76pt>
-File: ../assets/research_infographic.png Graphic file (type png)
-<use ../assets/research_infographic.png>
-Package luatex.def Info: ../assets/research_infographic.png  used on input line
- 184.
-(luatex.def)             Requested size: 258.0pt x 143.99855pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 184--185
- [][] 
+Underfull \hbox (badness 4291) in paragraph at lines 103--104
+\TU/ptm/m/sc/10 with 5-fold time-series cross-validation to pre-serve
  []
 
-<../assets/correlation_matrix.png, id=350, 558.6471pt x 492.8814pt>
-File: ../assets/correlation_matrix.png Graphic file (type png)
-<use ../assets/correlation_matrix.png>
-Package luatex.def Info: ../assets/correlation_matrix.png  used on input line 2
-23.
-(luatex.def)             Requested size: 247.6778pt x 218.51552pt.
-[5<../assets/research_infographic.png>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 228
-.
 
-(C:/Users/parth/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 228
-.
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 109.
 
-(C:/Users/parth/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<../assets/distribution_visualization.png, id=357, 1076.1003pt x 1065.9825pt>
-File: ../assets/distribution_visualization.png Graphic file (type png)
-<use ../assets/distribution_visualization.png>
-Package luatex.def Info: ../assets/distribution_visualization.png  used on inpu
-t line 233.
-(luatex.def)             Requested size: 247.6778pt x 245.34973pt.
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 110.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 111.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 112.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 113.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 139.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 140.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 141.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 142.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 158.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 161.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 162.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 162.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
+(Font)              using `TU/ptm/bx/n' instead on input line 162.
+
+<../assets/arima.png, id=108, 661.47125pt x 584.1825pt>
+File: ../assets/arima.png Graphic file (type png)
+<use ../assets/arima.png>
+Package luatex.def Info: ../assets/arima.png  used on input line 174.
+(luatex.def)             Requested size: 247.6778pt x 218.73808pt.
+
+Underfull \vbox (badness 2753) has occurred while \output is active []
+
+ [2]
+<../assets/prophet.png, id=122, 660.13292pt x 586.85916pt>
+File: ../assets/prophet.png Graphic file (type png)
+<use ../assets/prophet.png>
+Package luatex.def Info: ../assets/prophet.png  used on input line 181.
+(luatex.def)             Requested size: 247.6778pt x 220.1791pt.
+<../assets/lstm.png, id=123, 660.4675pt x 597.23125pt>
+File: ../assets/lstm.png Graphic file (type png)
+<use ../assets/lstm.png>
+Package luatex.def Info: ../assets/lstm.png  used on input line 188.
+(luatex.def)             Requested size: 247.6778pt x 223.96117pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-<../assets/distribution_comparison.png, id=359, 1148.3703pt x 445.1832pt>
-File: ../assets/distribution_comparison.png Graphic file (type png)
-<use ../assets/distribution_comparison.png>
-Package luatex.def Info: ../assets/distribution_comparison.png  used on input l
-ine 243.
-(luatex.def)             Requested size: 247.6778pt x 96.0114pt.
- [6<../assets/correlation_matrix.png><../assets/distribution_visualization.png><
-../assets/distribution_comparison.png>]
-Underfull \hbox (badness 1715) in paragraph at lines 275--276
-\TU/ptm/m/sc/10 as a foun-da-tional bench-mark due to its sim-plic-ity
- []
-
-<../assets/arima.png, id=373, 661.47125pt x 584.1825pt>
-File: ../assets/arima.png Graphic file (type png)
-<use ../assets/arima.png>
-Package luatex.def Info: ../assets/arima.png  used on input line 282.
-(luatex.def)             Requested size: 247.6778pt x 218.73808pt.
-
-Underfull \vbox (badness 1009) has occurred while \output is active []
-
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 293.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 293.
-
-[7<../assets/arima.png>]
-<../assets/prophet.png, id=390, 660.13292pt x 586.85916pt>
-File: ../assets/prophet.png Graphic file (type png)
-<use ../assets/prophet.png>
-Package luatex.def Info: ../assets/prophet.png  used on input line 332.
-(luatex.def)             Requested size: 247.6778pt x 220.1791pt.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 343.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 343.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 360.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 363.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 367.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 370.
-
-<../assets/lstm.png, id=391, 660.4675pt x 597.23125pt>
-File: ../assets/lstm.png Graphic file (type png)
-<use ../assets/lstm.png>
-Package luatex.def Info: ../assets/lstm.png  used on input line 392.
-(luatex.def)             Requested size: 247.6778pt x 223.96117pt.
-
-Underfull \vbox (badness 5592) has occurred while \output is active []
-
- [8<../assets/prophet.png>]
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 403.
-
-
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 403.
-
-
-Overfull \hbox (19.70895pt too wide) detected at line 423
-[] \OT1/cmr/m/n/10 = [] []
- []
-
-<../assets/randomforest.png, id=399, 659.46375pt x 602.25pt>
+<../assets/randomforest.png, id=124, 659.46375pt x 602.25pt>
 File: ../assets/randomforest.png Graphic file (type png)
 <use ../assets/randomforest.png>
-Package luatex.def Info: ../assets/randomforest.png  used on input line 437.
+Package luatex.def Info: ../assets/randomforest.png  used on input line 195.
 (luatex.def)             Requested size: 247.6778pt x 226.1924pt.
+LaTeX Font Info:    Trying to load font information for TU+pcr on input line 20
+7.
+LaTeX Font Info:    No file TUpcr.fd. on input line 207.
 
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 448.
 
+LaTeX Font Warning: Font shape `TU/pcr/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 207.
 
-LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/bx/n' instead on input line 448.
-
-[9<../assets/lstm.png><../assets/randomforest.png>]
-<../assets/full_page.png, id=410, 1284.46542pt x 802.66542pt>
+[3<../assets/arima.png><../assets/prophet.png><../assets/lstm.png><../assets/ran
+domforest.png>]
+<../assets/full_page.png, id=136, 1284.46542pt x 802.66542pt>
 File: ../assets/full_page.png Graphic file (type png)
 <use ../assets/full_page.png>
-Package luatex.def Info: ../assets/full_page.png  used on input line 468.
-(luatex.def)             Requested size: 258.0pt x 161.21611pt.
+Package luatex.def Info: ../assets/full_page.png  used on input line 211.
+(luatex.def)             Requested size: 247.6778pt x 154.77383pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 468--469
- [][] 
+Underfull \hbox (badness 2221) in paragraph at lines 223--224
+[]\TU/pcr/m/n/10 Planned ex-ten-sions in-clude in-cor-po-rat-ing on-chain
  []
 
-<../assets/sidenav.png, id=412, 198.40791pt x 381.425pt>
-File: ../assets/sidenav.png Graphic file (type png)
-<use ../assets/sidenav.png>
-Package luatex.def Info: ../assets/sidenav.png  used on input line 478.
-(luatex.def)             Requested size: 129.0pt x 247.99315pt.
-<../assets/header.png, id=414, 994.04709pt x 321.86917pt>
-File: ../assets/header.png Graphic file (type png)
-<use ../assets/header.png>
-Package luatex.def Info: ../assets/header.png  used on input line 488.
-(luatex.def)             Requested size: 247.6778pt x 80.19696pt.
-<../assets/chart.png, id=416, 1284.46542pt x 802.66542pt>
-File: ../assets/chart.png Graphic file (type png)
-<use ../assets/chart.png>
-Package luatex.def Info: ../assets/chart.png  used on input line 498.
-(luatex.def)             Requested size: 247.6778pt x 154.77383pt.
-<../assets/forecast.png, id=418, 1284.46542pt x 802.66542pt>
-File: ../assets/forecast.png Graphic file (type png)
-<use ../assets/forecast.png>
-Package luatex.def Info: ../assets/forecast.png  used on input line 508.
-(luatex.def)             Requested size: 247.6778pt x 154.77383pt.
 
-Underfull \vbox (badness 4168) has occurred while \output is active []
-
- [10<../assets/full_page.png><../assets/sidenav.png><../assets/header.png><../as
-sets/chart.png>]
-Underfull \hbox (badness 3118) in paragraph at lines 575--576
+Underfull \hbox (badness 3118) in paragraph at lines 268--269
 []\TU/ptm/m/sc/8 L. Alessan-dretti, A. El-Bahrawy, L. M. Aiello, and A.
  []
 
-[11<../assets/forecast.png>]
+[4<../assets/full_page.png>]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -786,7 +757,9 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[12] (./main.aux)
+[5
+
+] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -795,43 +768,39 @@ L3 programming layer <2025-12-24>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B42C553FD3840B1C34B08175C0A71E23;9351.
+(rerunfilecheck)             Checksum: 6839BEDC7BDF1D4C6FB317E52EE74B33;2422.
 )
 
 Here is how much of LuaTeX's memory you used:
- 12014 strings out of 476081
- 195340,662416 words of node,token memory allocated
- 694 words of node memory still in use:
-   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 33 attribute, 58 glue_spec
-, 33 attribute_list, 1 write, 12 pdf_action nodes
-   avail lists: 2:901,3:818,4:202,5:803,6:71,7:17988,8:50,9:542,10:18,11:1788
- 34098 multiletter control sequences out of 65536+600000
- 64 fonts using 4470959 bytes
- 72i,12n,75p,1223b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/users/parth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmroman6-
+ 11780 strings out of 476081
+ 156268,662416 words of node,token memory allocated
+ 514 words of node memory still in use:
+   6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 6 attribute, 58 glue_spec,
+ 6 attribute_list, 1 write nodes
+   avail lists: 1:1,2:790,3:547,4:133,5:872,6:76,7:16746,8:22,9:555,10:17,11:142
+7
+ 33968 multiletter control sequences out of 65536+600000
+ 61 fonts using 4284231 bytes
+ 72i,12n,75p,1055b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/users/parth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmroman8-
 regular.otf><c:/users/parth/appdata/local/programs/miktex/fonts/opentype/public/
 lm/lmroman7-regular.otf><c:/users/parth/appdata/local/programs/miktex/fonts/open
-type/public/lm/lmroman8-regular.otf><c:/users/parth/appdata/local/programs/mikte
+type/public/lm/lmroman6-regular.otf><c:/users/parth/appdata/local/programs/mikte
 x/fonts/opentype/public/lm/lmroman9-regular.otf><c:/users/parth/appdata/local/pr
 ograms/miktex/fonts/opentype/public/lm/lmroman10-regular.otf><c:/users/parth/app
 data/local/programs/miktex/fonts/opentype/public/lm/lmroman12-regular.otf><c:/us
 ers/parth/appdata/local/programs/miktex/fonts/opentype/public/lm/lmroman17-regul
 ar.otf><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmex10.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmmi10.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/cm/cmmi7.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/parth/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/parth/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/parth/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/parth/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on main.pdf (12 pages, 10486106 bytes).
+/cm/cmmi10.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmr10.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmr7.pfb><C:/Users/parth/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/parth/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/parth/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on main.pdf (5 pages, 1013263 bytes).
 
-PDF statistics: 563 PDF objects out of 1000 (max. 8388607)
- 130 named destinations out of 1000 (max. 131072)
- 417 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 228 PDF objects out of 1000 (max. 8388607)
+ 53 named destinations out of 1000 (max. 131072)
+ 113 words of extra memory for PDF output out of 10000 (max. 100000000)
 
