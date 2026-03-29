@@ -50,15 +50,14 @@
 
 \maketitle
 
+
 % ======================
 % ABSTRACT
 % ======================
 \begin{abstract}
-This project presents a production-grade, end-to-end cryptocurrency price forecasting pipeline that integrates statistical, machine learning, and deep learning models into a unified analysis workflow. An interactive web application, built with Python and Streamlit, supports asset selection across 30 major cryptocurrencies, configurable forecasting horizons, and four distinct models (ARIMA, Prophet, LSTM, and Random Forest) for comparative analysis. The system addresses the challenges of non-stationary, noisy price dynamics inherent in cryptocurrency markets through robust preprocessing, feature engineering, and model evaluation frameworks. Experimental results on Bitcoin demonstrate that deep learning and ensemble methods achieve superior forecasting accuracy compared to traditional statistical approaches, with LSTM attaining the lowest RMSE of 4,403.39 and highest R² score of 0.8705, while Random Forest achieves the best explanatory power with an R² score of 0.8996. Prophet demonstrates the lowest MAPE of 3.14\% among all models, highlighting its effectiveness for percentage-based accuracy in volatile cryptocurrency markets.
+This project presents a production-grade cryptocurrency forecasting pipeline integrating statistical, machine learning, and deep learning models. An interactive web application supports asset selection across 30 cryptocurrencies, configurable horizons, and four models (ARIMA, Prophet, LSTM, Random Forest). Key innovations include automated hyperparameter optimization and comprehensive model comparison under consistent experimental conditions. The system addresses non-stationary price dynamics through robust preprocessing and feature engineering. Experimental results on Bitcoin demonstrate that LSTM achieves an R\textsuperscript{2} of 0.8705, Random Forest achieves the best explanatory power with an R\textsuperscript{2} of 0.8996, while Prophet attains the lowest MAPE of 3.14\%.
 \end{abstract}
-% ======================
-% KEYWORDS
-% ======================
+
 \begin{IEEEkeywords}
 cryptocurrency, price forecasting, ARIMA, Prophet, LSTM, Random Forest, time series analysis, machine learning, deep learning
 \end{IEEEkeywords}

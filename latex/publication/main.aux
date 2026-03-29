@@ -3,70 +3,88 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{ren2022,fang2022}
-\citation{mcnally2018,catania2019}
-\citation{patel2020}
-\citation{bakar2017}
 \citation{mcnally2018}
-\citation{taylor2018}
-\citation{sailaja2024}
-\citation{breiman2001}
-\citation{alessandretti2018}
-\citation{hochreiter1997}
-\citation{chowdhury2020}
-\citation{garcia2023}
-\citation{kashif2024}
-\citation{livieris2020}
-\citation{ren2022}
+\citation{catania2019}
+\citation{chowdhury2020,sun2020,hochreiter1997}
+\citation{bakar2017,mcnally2018}
+\citation{taylor2018,sailaja2024,jha2021}
+\citation{breiman2001,sun2020,chen2016,ke2017}
+\citation{hochreiter1997,mcnally2018}
+\citation{wu2023,chowdhury2020}
+\citation{alessandretti2018,jiang2021,abraham2018}
 \@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{1}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {III}Innovations and Design Choices}{1}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Hyperparameter Tuning Strategy}{1}{subsection.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Feature Engineering Scheme}{2}{subsection.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Ensemble Evaluation with Cross-Validation}{2}{subsection.3.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Methodology}{2}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Data Collection and Preprocessing}{2}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Exploratory Data Analysis}{2}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Model Configurations}{2}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Results and Analysis}{2}{section.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Model Performance Comparison on Bitcoin (Test Set)}}{2}{table.1}\protected@file@percent }
-\newlabel{tab:comparison}{{I}{2}{Model Performance Comparison on Bitcoin (Test Set)}{table.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces ARIMA(1,1,0) forecast for Bitcoin: historical data, validation predictions, and forecast with error bounds.}}{3}{figure.1}\protected@file@percent }
-\newlabel{fig:arima}{{1}{3}{ARIMA(1,1,0) forecast for Bitcoin: historical data, validation predictions, and forecast with error bounds}{figure.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Prophet forecast for Bitcoin with confidence intervals. Train: 1807 records, Test: 452 records.}}{3}{figure.2}\protected@file@percent }
-\newlabel{fig:prophet}{{2}{3}{Prophet forecast for Bitcoin with confidence intervals. Train: 1807 records, Test: 452 records}{figure.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces LSTM forecast for Bitcoin: two-layer architecture with sequence length 15 and dropout 0.2.}}{3}{figure.3}\protected@file@percent }
-\newlabel{fig:lstm}{{3}{3}{LSTM forecast for Bitcoin: two-layer architecture with sequence length 15 and dropout 0.2}{figure.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Random Forest forecast for Bitcoin: 19 engineered features, 5-fold cross-validation.}}{3}{figure.4}\protected@file@percent }
-\newlabel{fig:randomforest}{{4}{3}{Random Forest forecast for Bitcoin: 19 engineered features, 5-fold cross-validation}{figure.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VI}System Architecture and Application}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {III}Methodology Workflow}{2}{section.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Complete methodology workflow from setup to evaluation}}{2}{figure.1}\protected@file@percent }
+\newlabel{fig:flowchart}{{1}{2}{Complete methodology workflow from setup to evaluation}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Workflow Stages}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}1}Environment Setup}{2}{subsubsection.3.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}2}Data Preprocessing}{2}{subsubsection.3.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}3}Exploratory Data Analysis}{2}{subsubsection.3.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}4}Dataset Sampling}{2}{subsubsection.3.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}5}Model Implementation and Hyperparameter Tuning}{2}{subsubsection.3.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-A}6}Evaluation \& Comparison}{2}{subsubsection.3.1.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Data Collection and Preprocessing}{2}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {V}Exploratory Data Analysis}{2}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Feature Correlation}{2}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Correlation Matrix of Cryptocurrency Price Features}}{2}{figure.2}\protected@file@percent }
+\newlabel{fig:correlation_matrix}{{2}{2}{Correlation Matrix of Cryptocurrency Price Features}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Distribution and Transformation}{2}{subsection.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Distribution Analysis of Cryptocurrency Close Prices}}{3}{figure.3}\protected@file@percent }
+\newlabel{fig:distribution_visualization}{{3}{3}{Distribution Analysis of Cryptocurrency Close Prices}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Original vs Transformed Close Price Distributions}}{3}{figure.4}\protected@file@percent }
+\newlabel{fig:distribution_comparison}{{4}{3}{Original vs Transformed Close Price Distributions}{figure.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Forecasting Models}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}ARIMA}{3}{subsection.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces ARIMA forecast visualization for Bitcoin}}{3}{figure.5}\protected@file@percent }
+\newlabel{fig:arima}{{5}{3}{ARIMA forecast visualization for Bitcoin}{figure.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces ARIMA (1,1,0) Evaluation Metrics}}{3}{table.1}\protected@file@percent }
+\newlabel{tab:arima-bitcoin-metrics}{{I}{3}{ARIMA (1,1,0) Evaluation Metrics}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-B}}Prophet}{3}{subsection.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Prophet forecast visualization for Bitcoin}}{4}{figure.6}\protected@file@percent }
+\newlabel{fig:prophet}{{6}{4}{Prophet forecast visualization for Bitcoin}{figure.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Prophet Evaluation Metrics}}{4}{table.2}\protected@file@percent }
+\newlabel{tab:prophet-bitcoin-metrics}{{II}{4}{Prophet Evaluation Metrics}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-C}}LSTM}{4}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces LSTM forecast visualization for Bitcoin}}{4}{figure.7}\protected@file@percent }
+\newlabel{fig:lstm}{{7}{4}{LSTM forecast visualization for Bitcoin}{figure.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces LSTM Evaluation Metrics}}{4}{table.3}\protected@file@percent }
+\newlabel{tab:lstm-bitcoin-metrics}{{III}{4}{LSTM Evaluation Metrics}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-D}}Random Forest}{4}{subsection.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Random Forest forecast visualization for Bitcoin}}{5}{figure.8}\protected@file@percent }
+\newlabel{fig:randomforest}{{8}{5}{Random Forest forecast visualization for Bitcoin}{figure.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Random Forest Evaluation Metrics}}{5}{table.4}\protected@file@percent }
+\newlabel{tab:rf-bitcoin-metrics}{{IV}{5}{Random Forest Evaluation Metrics}{table.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Streamlit Application}{5}{section.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Complete Cryptocurrency Forecasting Dashboard}}{5}{figure.9}\protected@file@percent }
+\newlabel{fig:full_dashboard}{{9}{5}{Complete Cryptocurrency Forecasting Dashboard}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Sidebar Configuration Panel}}{5}{figure.10}\protected@file@percent }
+\newlabel{fig:sidebar_config}{{10}{5}{Sidebar Configuration Panel}{figure.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Market Overview Header}}{5}{figure.11}\protected@file@percent }
+\newlabel{fig:header_info}{{11}{5}{Market Overview Header}{figure.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Interactive Price Chart}}{5}{figure.12}\protected@file@percent }
+\newlabel{fig:chart_section}{{12}{5}{Interactive Price Chart}{figure.12}{}}
 \bibstyle{IEEEtran}
 \bibcite{ren2022}{1}
 \bibcite{fang2022}{2}
 \bibcite{mcnally2018}{3}
 \bibcite{catania2019}{4}
 \bibcite{chowdhury2020}{5}
-\bibcite{garcia2023}{6}
-\bibcite{patel2020}{7}
-\bibcite{alessandretti2018}{8}
-\bibcite{bakar2017}{9}
-\bibcite{taylor2018}{10}
-\bibcite{sailaja2024}{11}
+\bibcite{sun2020}{6}
+\bibcite{hochreiter1997}{7}
+\bibcite{bakar2017}{8}
+\bibcite{taylor2018}{9}
+\bibcite{sailaja2024}{10}
+\bibcite{jha2021}{11}
 \bibcite{breiman2001}{12}
-\bibcite{hochreiter1997}{13}
-\bibcite{kashif2024}{14}
-\bibcite{livieris2020}{15}
-\bibcite{sun2020}{16}
-\bibcite{ji2019}{17}
-\bibcite{cho2014}{18}
-\bibcite{dutta2020}{19}
-\bibcite{chen2016}{20}
-\bibcite{sebastiao2021}{21}
-\bibcite{jiang2021}{22}
-\bibcite{abraham2018}{23}
-\bibcite{vaswani2017}{24}
-\bibcite{bouri2019}{25}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Streamlit forecasting dashboard showing Bitcoin analysis with side-by-side model comparison, interactive charts, and performance metrics.}}{4}{figure.5}\protected@file@percent }
-\newlabel{fig:full_dashboard}{{5}{4}{Streamlit forecasting dashboard showing Bitcoin analysis with side-by-side model comparison, interactive charts, and performance metrics}{figure.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion and Future Work}{4}{section.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{4}{section*.3}\protected@file@percent }
-\gdef \@abspage@last{5}
+\bibcite{chen2016}{13}
+\bibcite{ke2017}{14}
+\bibcite{wu2023}{15}
+\bibcite{alessandretti2018}{16}
+\bibcite{jiang2021}{17}
+\bibcite{abraham2018}{18}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Forecast Visualization with Metrics}}{6}{figure.13}\protected@file@percent }
+\newlabel{fig:forecast_section}{{13}{6}{Forecast Visualization with Metrics}{figure.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Conclusion and Future Work}{6}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{6}{section*.3}\protected@file@percent }
+\gdef \@abspage@last{6}
